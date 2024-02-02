@@ -33,4 +33,3 @@
 .env
 .rspec
 Gemfile.lock
-/bin
