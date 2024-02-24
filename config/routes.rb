@@ -4,5 +4,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root "admin/food_items#index"
+  root "admin/prodcts#index"
 end

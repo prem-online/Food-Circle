@@ -1,34 +1,32 @@
 # frozen_string_literal: true
 ActiveAdmin.register Order do
-    menu label: "Customer Orders"
-    permit_params :name, :price, food_item_ids: []
-    filter :food_items
+    menu label: "Orders"
+    permit_params :order_number, :total, order_items_attributes: [:id, :product_id, :quantity, :_destroy]
+    filter :products
     filter :total
     filter :created_at
+
+
         index title: 'Order List' do
-            column :food_items do |order|
-                order.food_items.each do |food_item|
-                    food_item.name
+          selectable_column
+            column 'Order Id' do |o|
+              'ODN'+o.id.to_s
+            end
+            column :products do |order|
+                order.products.each do |product|
+                    product.name
                 end
             end
             column :total do |order|
-                order.food_items.pluck(:price).sum 
+                order.products.pluck(:price).sum 
             end
-            current_date = Date.today
-            current_month = current_date.strftime('%b');
-            column "#{current_date.strftime('%b %Y')}" do |order|
-                order.created_at.strftime('%b') == current_month ?
-                order.created_at.strftime('%e')
-                : order.created_at.strftime('%e %b %Y')
-            end
-            column :id
             actions
         end
 
         show do
             
-            panel "Food Items" do
-              table_for order.food_items do
+            panel "Products" do
+              table_for order.products do
                 column :name
                 column :price
               end
@@ -36,7 +34,7 @@ ActiveAdmin.register Order do
             
             attributes_table do
               row :total do
-                  order.food_items.pluck(:price).sum
+                  order.products.pluck(:price).sum
               end
               row :date do
                 order.created_at.strftime('%e %b %Y')
@@ -44,12 +42,24 @@ ActiveAdmin.register Order do
             end
         end
 
-        form title: 'New Order' do |f|
-            inputs 'Details' do
-              input :food_item_ids, label: 'Food Items', as: :searchable_select, collection: FoodItem.all, multiple: true
-            end
-            para "Press cancel to return to the order list without saving."
-            actions
+
+        form do |f|
+          f.inputs "Order Details" do
+            f.input :order_number, input_html:{value: Order.new_order_number, disabled: true}
+            # Add inputs for other attributes as needed
           end
+      
+          f.inputs "Order Items" do
+            f.has_many :order_items, heading: true, allow_destroy: true do |item|
+              item.input :product
+              item.input :quantity
+              item.input :_destroy, as: :boolean, required: false, label: 'Remove item'
+              # Add other order item attributes as needed
+            end
+          end
+      
+          f.actions
+        end
+        
 end
   

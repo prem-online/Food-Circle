@@ -18,4 +18,12 @@ $primary-color: #C04000;
 // Overriding any non-variable Sass must be done after the fact.
 // For example, to change the default status-tag color:
 //
+#site_title{
+    display: none;
+}
+#utility_nav{
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+}
 //   .status_tag { background: #6090DB; }
