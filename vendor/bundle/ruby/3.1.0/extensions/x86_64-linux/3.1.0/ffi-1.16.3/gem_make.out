@@ -1,5 +1,5 @@
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
-/home/avatar/.rbenv/versions/3.1.2/bin/ruby -I /home/avatar/.rbenv/versions/3.1.2/lib/ruby/3.1.0 -r ./siteconf20240202-43687-3sfxll.rb extconf.rb
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
+/home/avatar/.rbenv/versions/3.1.2/bin/ruby -I /home/avatar/.rbenv/versions/3.1.2/lib/ruby/3.1.0 -r ./siteconf20240225-35810-6hvvxl.rb extconf.rb
 checking for ffi.h... yes
 checking for ffi_prep_closure_loc() in -lffi... yes
 checking for ffi_prep_cif_var()... yes
@@ -10,10 +10,10 @@ checking for whether -pthread is accepted as LDFLAGS... yes
 creating extconf.h
 creating Makefile
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
 make DESTDIR\= clean
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
 make DESTDIR\=
 compiling AbstractMemory.c
 compiling ArrayType.c
@@ -40,6 +40,6 @@ compiling Variadic.c
 compiling ffi.c
 linking shared-object ffi_c.so
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
 make DESTDIR\= install
-/usr/bin/install -c -m 0755 ffi_c.so ./.gem.20240202-43687-a81dih
+/usr/bin/install -c -m 0755 ffi_c.so ./.gem.20240225-35810-8ivyp4

@@ -55,6 +55,8 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 6.0'
   gem 'factory_bot_rails', '~> 6.4', '>= 6.4.3'
   gem 'pry'
+  gem 'rubocop', '~> 1.14'
+  gem 'rubocop-ast', '~> 1.30'
 end
 
 group :development do
@@ -74,8 +76,8 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-gem 'activeadmin', '~> 3.2'
+gem 'activeadmin', '~> 2.14'
 gem 'sassc'
 gem 'language-converter', '~> 0.0.5'
 gem 'activeadmin-searchable_select'
-gem 'arctic_admin'
+gem 'arctic_admin', '~> 3.3'

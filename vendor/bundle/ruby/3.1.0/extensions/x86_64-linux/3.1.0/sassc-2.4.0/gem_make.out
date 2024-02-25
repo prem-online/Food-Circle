@@ -1,11 +1,11 @@
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/sassc-2.4.0/ext
-/home/avatar/.rbenv/versions/3.1.2/bin/ruby -I /home/avatar/.rbenv/versions/3.1.2/lib/ruby/3.1.0 -r ./siteconf20240202-43687-m88lau.rb extconf.rb
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/sassc-2.4.0/ext
+/home/avatar/.rbenv/versions/3.1.2/bin/ruby -I /home/avatar/.rbenv/versions/3.1.2/lib/ruby/3.1.0 -r ./siteconf20240225-35810-mdyznd.rb extconf.rb
 creating Makefile
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/sassc-2.4.0/ext
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/sassc-2.4.0/ext
 make DESTDIR\= clean
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/sassc-2.4.0/ext
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/sassc-2.4.0/ext
 make DESTDIR\=
 compiling ./libsass/src/ast.cpp
 compiling ./libsass/src/ast2c.cpp
@@ -75,6 +75,6 @@ compiling ./libsass/src/util_string.cpp
 compiling ./libsass/src/values.cpp
 linking shared-object sassc/libsass.so
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/sassc-2.4.0/ext
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/sassc-2.4.0/ext
 make DESTDIR\= install
-/usr/bin/install -c -m 0755 libsass.so ./.gem.20240202-43687-dfbvmw/sassc
+/usr/bin/install -c -m 0755 libsass.so ./.gem.20240225-35810-y7vavw/sassc

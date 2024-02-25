@@ -1,0 +1,53 @@
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+@import "reset";
+@import "fonts";
+@import "variables/variables";
+
+@import "mixins/mixins";
+
+@import "common";
+@import "buttons";
+@import "grid";
+
+@import "components/_columns";
+@import "components/_comments";
+@import "components/_date_picker";
+@import "components/_dialogs";
+@import "components/_flash";
+@import "components/_form";
+@import "components/_inputs";
+@import "components/_pagination";
+@import "components/_panel_contents";
+@import "components/_select2";
+@import "components/_status_tag";
+@import "components/_tables";
+@import "components/_tabs";
+
+@import "layouts/_filter";
+@import "layouts/_footer";
+@import "layouts/_header";
+@import "layouts/_main_content";
+@import "layouts/_sidebar";
+@import "layouts/_wrapper";
+
+@import "pages/_form";
+@import "pages/_index";
+@import "pages/_login";
+@import "pages/_show";
+
+body {
+  font-family: $font-family-body;
+  background-color: $body-background;
+  color: $text-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+}

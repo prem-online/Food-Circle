@@ -1,5 +1,5 @@
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.0/ext/nio4r
-/home/avatar/.rbenv/versions/3.1.2/bin/ruby -I /home/avatar/.rbenv/versions/3.1.2/lib/ruby/3.1.0 -r ./siteconf20240202-38948-q6c3bm.rb extconf.rb
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.0/ext/nio4r
+/home/avatar/.rbenv/versions/3.1.2/bin/ruby -I /home/avatar/.rbenv/versions/3.1.2/lib/ruby/3.1.0 -r ./siteconf20240225-35810-g4sj11.rb extconf.rb
 checking for unistd.h... yes
 checking for rb_io_descriptor()... yes
 checking for linux/aio_abi.h... yes
@@ -12,10 +12,10 @@ checking for port_event_t in port.h... no
 checking for sys/resource.h... yes
 creating Makefile
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.0/ext/nio4r
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.0/ext/nio4r
 make DESTDIR\= clean
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.0/ext/nio4r
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.0/ext/nio4r
 make DESTDIR\=
 compiling bytebuffer.c
 compiling monitor.c
@@ -264,6 +264,6 @@ cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may 
 cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
 linking shared-object nio4r_ext.so
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.0/ext/nio4r
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.0/ext/nio4r
 make DESTDIR\= install
-/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20240202-38948-t9b1x8
+/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20240225-35810-95x11t

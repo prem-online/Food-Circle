@@ -1,5 +1,5 @@
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/io-console-0.7.2/ext/io/console
-/home/avatar/.rbenv/versions/3.1.2/bin/ruby -I /home/avatar/.rbenv/versions/3.1.2/lib/ruby/3.1.0 -r ./siteconf20240202-38948-51y3vw.rb extconf.rb
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/io-console-0.7.2/ext/io/console
+/home/avatar/.rbenv/versions/3.1.2/bin/ruby -I /home/avatar/.rbenv/versions/3.1.2/lib/ruby/3.1.0 -r ./siteconf20240225-35810-o3grv8.rb extconf.rb
 checking for rb_io_path()... no
 checking for rb_io_descriptor()... yes
 checking for rb_io_get_write_io()... yes
@@ -11,14 +11,14 @@ checking for sys/ioctl.h... yes
 checking for HAVE_RUBY_FIBER_SCHEDULER_H... yes
 creating Makefile
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/io-console-0.7.2/ext/io/console
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/io-console-0.7.2/ext/io/console
 make DESTDIR\= clean
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/io-console-0.7.2/ext/io/console
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/io-console-0.7.2/ext/io/console
 make DESTDIR\=
 compiling console.c
 linking shared-object io/console.so
 
-current directory: /home/avatar/Webapps/dhaba-manager/vendor/bundle/ruby/3.1.0/gems/io-console-0.7.2/ext/io/console
+current directory: /home/avatar/Webapps/Eatery-manager/vendor/bundle/ruby/3.1.0/gems/io-console-0.7.2/ext/io/console
 make DESTDIR\= install
-/usr/bin/install -c -m 0755 console.so ./.gem.20240202-38948-m4vk9i/io
+/usr/bin/install -c -m 0755 console.so ./.gem.20240225-35810-w099jj/io
