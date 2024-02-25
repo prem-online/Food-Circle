@@ -4,9 +4,14 @@ class Order < ApplicationRecord
       t.serial :order_number
       t.float :total
 =end
-
     has_many :order_items, dependent: :destroy
-    has_many :products, through: :order_items   
+    has_many :products, through: :order_items  
+
+    validates :order_items, presence: true
+
+    before_create :add_order_number
+    after_create :add_order_total
+
     accepts_nested_attributes_for :order_items
     def self.ransackable_attributes(auth_object = nil)
         column_names + _ransackers.keys
@@ -16,14 +21,23 @@ class Order < ApplicationRecord
         reflect_on_all_associations.map { |a| a.name.to_s } + _ransackers.keys
     end
 
-    def self.new_order_number
-        last_id = Order.ids.last
-        order_number = last_id.nil? ? 1 : last_id
-        order_number_with_zeros = remove_first_character((1000000+order_number).to_s)
-        'ON'+order_number_with_zeros
+    private
+
+    def add_order_number
+        self.order_number = new_order_number
     end
 
-    def self.remove_first_character(input_str)
-        input_str[1..-1]
+    def add_item_price
+        self.item_price = self.product.price
+    end
+
+    def add_order_total
+        total = order_items.sum { |item| item.item_price * item.quantity }
+        self.update(total: total)
+    end
+
+    def new_order_number
+        last_id = Order.ids.last || 1
+        order_number = 'ON' + (600000 + last_id).to_s
     end
 end

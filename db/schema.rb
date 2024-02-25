@@ -35,13 +35,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_24_080234) do
     t.datetime "order_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "item_price", null: false
+    t.float "item_price", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", force: :cascade do |t|
-    t.serial "order_number", null: false
+    t.string "order_number"
     t.float "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

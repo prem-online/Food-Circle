@@ -9,32 +9,30 @@ ActiveAdmin.register Order do
 
         index title: 'Order List' do
           selectable_column
-            column 'Order Id' do |o|
-              'ODN'+o.id.to_s
-            end
+            column :order_number
             column :products do |order|
                 order.products.each do |product|
                     product.name
                 end
             end
-            column :total do |order|
-                order.products.pluck(:price).sum 
-            end
+            column :total
             actions
         end
 
         show do
-            
             panel "Products" do
-              table_for order.products do
-                column :name
-                column :price
+              table_for order.order_items do
+                column :name do |oi|
+                  oi.product.name
+                end
+                column :item_price
+                column :quantity
               end
             end
             
             attributes_table do
               row :total do
-                  order.products.pluck(:price).sum
+                  order.total
               end
               row :date do
                 order.created_at.strftime('%e %b %Y')
@@ -44,20 +42,12 @@ ActiveAdmin.register Order do
 
 
         form do |f|
-          f.inputs "Order Details" do
-            f.input :order_number, input_html:{value: Order.new_order_number, disabled: true}
-            # Add inputs for other attributes as needed
-          end
-      
-          f.inputs "Order Items" do
-            f.has_many :order_items, heading: true, allow_destroy: true do |item|
+            f.has_many :order_items, heading: false, allow_destroy: true, id: 'Love' do |item|
               item.input :product
               item.input :quantity
               item.input :_destroy, as: :boolean, required: false, label: 'Remove item'
               # Add other order item attributes as needed
             end
-          end
-      
           f.actions
         end
         
