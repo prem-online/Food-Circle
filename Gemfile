@@ -81,3 +81,4 @@ gem 'sassc'
 gem 'language-converter', '~> 0.0.5'
 gem 'activeadmin-searchable_select'
 gem 'arctic_admin', '~> 3.3'
+gem "tailwindcss-rails", "~> 2.3"
