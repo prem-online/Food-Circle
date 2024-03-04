@@ -25,6 +25,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Compress CSS using a preprocessor.
+  config.hosts << "eatery-manager.onrender.com"
   # config.assets.css_compressor = :sass
   config.hosts << /[a-z0-9\-]+\.onrender\.com/
   config.hosts << /[a-z0-9\-.]+\.onrender\.com/
