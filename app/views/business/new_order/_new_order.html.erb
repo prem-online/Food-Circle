@@ -1,0 +1,43 @@
+<table>
+    <thead>
+        <th>
+            Sr
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+    </thead>
+    <tbody id='new-order-table-body'>
+        <% products.each_with_index do |product, index| %>
+            <tr class="product-row<%=product.id%>">
+                <td><%= index+1 %></td>
+                <td><%= product.name %></td>
+                <td><%= product.price %></td>
+                <td>
+                    <input type='number' name='product_quantity' placeholder='0' class="product-quantity<%=product.id%>"></input>
+                    <input type='button' value='+1' class="addbutton-1-<%=product.id%>"></input>
+                    <input type='button' value='+3' class="addbutton-3-<%=product.id%>"></input>
+                    <input type='button' value='+10' class="addbutton-10-<%=product.id%>"></input>
+                    <input type='button' value='x' class="clearbutton-x-<%=product.id%>"></input>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+    <tbody>
+        <tr>
+            <td>Total: <span id='new-order-total'>0</span></td>
+        </tr>
+    </tbody>
+</table>
+<button>
+    Proceed
+</button>
+<button>
+    Generate bill
+</button>

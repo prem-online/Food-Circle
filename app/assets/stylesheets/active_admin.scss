@@ -1,3 +1,4 @@
+@import 'activeadmin_addons/all';
 // Sass variable overrides must be declared before loading up Active Admin's styles.
 //
 // To view the variables that Active Admin provides, take a look at
@@ -6,24 +7,27 @@
 //
 // For example, to change the sidebar width:
 // $sidebar-width: 242px;
-
-// Active Admin's got SASS!
-@import "active_admin/mixins";
-// @import "active_admin/base";
 $primary-color: #C04000;
 
-// @import "arctic_admin/src/scss/main";
+// Active Admin's got SASS!
+// @import "active_admin/mixins";
+// @import "active_admin/base";
+
+// Active Bootstrap
+// @import "active_bootstrap_skin";
+
 @import "arctic_admin/base";
+@import "arctic_admin/main";
 @import "active_admin/searchable_select";
+@import 'activeadmin/selectize_input';
+
+
+
 // Overriding any non-variable Sass must be done after the fact.
 // For example, to change the default status-tag color:
 //
-#site_title{
-    display: none;
+.selectize-input {
+    width: 250px;
+    height: 32px;
+    padding: 8px;
 }
-#utility_nav{
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-}
-//   .status_tag { background: #6090DB; }

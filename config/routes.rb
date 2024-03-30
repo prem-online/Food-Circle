@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "articles#index"
-  root "admin/products#index"
+  root "business/products#index"
+  get 'users/guest'
+  post 'new_custom_order/new'
 end

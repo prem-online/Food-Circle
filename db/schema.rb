@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_24_080234) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_02_153427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_24_080234) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
+
+  create_table "blacklisted_tokens", force: :cascade do |t|
+    t.string "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "businesses", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.boolean "activated"
+    t.datetime "last_login"
+    t.boolean "blacklisted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_items", force: :cascade do |t|

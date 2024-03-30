@@ -47,10 +47,10 @@ ActiveAdmin.setup do |config|
   # will namespace routes to /hello_world/*
   #
   # To set no namespace by default, use:
-  #   config.default_namespace = false
+    config.default_namespace = false
   #
   # Default:
-  # config.default_namespace = :admin
+  config.default_namespace = :business
   #
   # You can customize the settings for each namespace by using
   # a namespace block. For example, to change the site title
@@ -232,7 +232,7 @@ ActiveAdmin.setup do |config|
   #
   # To load a javascript file:
     config.register_javascript 'quantity_select.js'
-
+    config.register_javascript 'custom_select.js'
   # == CSV options
   #
   # Set the CSV builder separator

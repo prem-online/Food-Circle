@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-ActiveAdmin.register_page "Dashboard" do
-  menu false 
+ActiveAdmin.register_page "Home" do
+  # menu  
 
     # Here is an example of a simple dashboard with columns and panels.
     #

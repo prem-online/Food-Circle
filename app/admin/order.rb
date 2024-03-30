@@ -43,13 +43,16 @@ ActiveAdmin.register Order do
     end
   end
 
+
   form do |f|
-    f.has_many :order_items, heading: false, allow_destroy: true, id: 'Love' do |item|
-      item.input :product
-      item.input :quantity
-      item.input :_destroy, as: :boolean, required: false, label: 'Remove item'
-      # Add other order item attributes as needed
+    f.inputs "Items" do
+      f.has_many :order_items, heading: false do |oi|
+        oi.input :product, :as => :selectize
+        oi.input :quantity, :as => :selectize, collection: (1..100).to_a
+      end
     end
     f.actions
   end
+
+
 end

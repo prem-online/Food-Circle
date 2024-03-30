@@ -9,7 +9,7 @@ ActiveAdmin.register Product do
       rescue
         resultant = { message: "Cannot destroy selected products", type: :error }
       end
-      redirect_to admin_products_path, flash: { resultant[:type] => resultant[:message] }
+      redirect_to business_products_path, flash: { resultant[:type] => resultant[:message] }
     end
   
     filter :name
@@ -21,14 +21,14 @@ ActiveAdmin.register Product do
           column ' Name' do |product|
             product.name 
           end
-          column :price
+          number_column :price, as: :currency, unit: "$", separator: ","
           actions
         end
 
         controller do
           def create
             super do |success,failure|
-              success.html { redirect_to admin_products_path }
+              success.html { redirect_to business_products_path }
             end
           end
         end

@@ -11,8 +11,8 @@ class Order < ApplicationRecord
 
     before_create :add_order_number
     after_create :add_order_total
+    accepts_nested_attributes_for :order_items, :products
 
-    accepts_nested_attributes_for :order_items
     def self.ransackable_attributes(auth_object = nil)
         column_names + _ransackers.keys
     end
