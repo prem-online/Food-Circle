@@ -21,7 +21,7 @@ ActiveAdmin.register Product do
           column ' Name' do |product|
             product.name 
           end
-          number_column :price, as: :currency, unit: "$", separator: ","
+          number_column :price, as: :currency, unit: "₹"
           actions
         end
 
