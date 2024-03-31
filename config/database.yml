@@ -20,10 +20,13 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
+  host: dpg-cnhnh9nsc6pc73e0aecg-a # render host
 development:
   <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
+  # url: <%= ENV["DATABASE_URL"] %>
+  database: mysite_l4g5 # render server
+  username: mysite # render server
+  password: FP7bpvquSYjfm3EMlPjuW9H3fUKqIMjc # render server
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +60,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: dhaba_manager_test
+  database: mysite_l4g5
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,7 +84,8 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
-#   database: dhaba_manager_production
-#   username: dhaba_manager
-#   password: <%= ENV["DHABA_MANAGER_DATABASE_PASSWORD"] %>
+  # url: <%= ENV["DATABASE_URL"] %>
+  database: mysite_l4g5  # render server
+  username: mysite # render server 
+  password: FP7bpvquSYjfm3EMlPjuW9H3fUKqIMjc # render server
+
