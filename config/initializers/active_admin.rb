@@ -232,7 +232,8 @@ ActiveAdmin.setup do |config|
   #
   # To load a javascript file:
     config.register_javascript 'quantity_select.js'
-    config.register_javascript 'custom_select.js'
+    config.register_javascript 'input_select.js'
+
   # == CSV options
   #
   # Set the CSV builder separator

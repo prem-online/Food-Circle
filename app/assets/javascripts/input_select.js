@@ -6,7 +6,12 @@ $(document).ready(function() {
         if (isClearButton){
             let productId = e.target.className.split('-').pop();
             let quantityInput = document.getElementsByClassName(`product-quantity${productId}`)[0];
-            quantityInput.value = ''
+            let productPrice = parseInt(quantityInput.parentElement.previousElementSibling.innerText)
+            let currentQty = quantityInput.value == '' ? 0 
+            : parseInt(quantityInput.value)
+            adjustTotal(productPrice, 0, currentQty);
+            quantityInput.value = '';
+
         }
         if (isAddButton) {
             let productId = e.target.className.split('-').pop();
@@ -14,16 +19,25 @@ $(document).ready(function() {
             let quantityInput = document.getElementsByClassName(`product-quantity${productId}`)[0];
             let currentQty = quantityInput.value == '' ? 0 
             : parseInt(quantityInput.value)
-            final_quantity = quantityInput.value == '' ? addQuantity 
+           
+            let final_quantity = quantityInput.value == '' ? addQuantity 
             : parseInt(quantityInput.value)+ parseInt(addQuantity)
-            quantityInput.value = final_quantity
-            productPrice = parseInt(quantityInput.parentElement.previousElementSibling.innerText)
+
+            quantityInput.value = final_quantity // updating quantity to input box
+
+            let productPrice = parseInt(quantityInput.parentElement.previousElementSibling.innerText)
             calculateTotal(productPrice, parseInt(final_quantity),currentQty)
         }
     });
    
 });
 
+function adjustTotal(product_price, new_quantity, old_quantity) {
+    let totalPrice = document.getElementById('new-order-total').innerText;
+    totalPrice = totalPrice == '' ? 0 : parseInt(totalPrice);
+    let newPrice = totalPrice - (product_price*(old_quantity-new_quantity))
+    document.getElementById('new-order-total').innerText = newPrice;
+}
 
 function calculateTotal(product_price, new_quantity, old_quantity) {
     let totalPrice = document.getElementById('new-order-total').innerText
