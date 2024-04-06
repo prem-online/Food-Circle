@@ -233,6 +233,7 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
     config.register_javascript 'quantity_select.js'
     config.register_javascript 'input_select.js'
+    config.register_javascript 'product_sort.js'
 
   # == CSV options
   #

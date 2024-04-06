@@ -4,7 +4,7 @@
             Sr
         </th>
         <th>
-            Name
+            <input type='text' id='product-sort' placeholder='Name' class="product-sort" style='background-color:#e4eaec;'></input>
         </th>
         <th>
             Price
@@ -15,12 +15,12 @@
     </thead>
     <tbody id='new-order-table-body'>
         <% products.each_with_index do |product, index| %>
-            <tr class="product-row<%=product.id%>">
+            <tr class="product-row <%=product.id%> <%=product.name%>">
                 <td><%= index+1 %></td>
                 <td><%= product.name %></td>
                 <td><%= product.price %></td>
                 <td>
-                    <input type='number' name='product_quantity' placeholder='0' class="product-quantity<%=product.id%>"></input>
+                    <input type='number' name='product_quantity' placeholder='0' readonly class="product-quantity<%=product.id%>"></input>
                     <input type='button' value='+1' class="addbutton-1-<%=product.id%>"></input>
                     <input type='button' value='+3' class="addbutton-3-<%=product.id%>"></input>
                     <input type='button' value='+10' class="addbutton-10-<%=product.id%>"></input>
