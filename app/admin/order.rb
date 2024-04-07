@@ -6,6 +6,7 @@ ActiveAdmin.register Order do
   filter :products
   filter :total
   filter :created_at
+  config.clear_action_items!
 
   index title: 'Order List' do
     selectable_column
@@ -19,7 +20,10 @@ ActiveAdmin.register Order do
     column  'Order Date', :created_at do |object|
       object.created_at.strftime('%e %b at %I:%M%p, %Y')
     end
-    actions
+    actions defaults: false do |product|
+      link_to 'View', business_order_path(product), class: 'view_link member_link'
+    end
+
   end
 
   show do
@@ -42,17 +46,5 @@ ActiveAdmin.register Order do
       end
     end
   end
-
-
-  form do |f|
-    f.inputs "Items" do
-      f.has_many :order_items, heading: false do |oi|
-        oi.input :product, :as => :selectize
-        oi.input :quantity, :as => :selectize, collection: (1..100).to_a
-      end
-    end
-    f.actions
-  end
-
 
 end
