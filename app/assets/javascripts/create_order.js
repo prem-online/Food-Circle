@@ -57,7 +57,7 @@ function sentPostRequest(data){
     })
     .then(data => {
         // Do something with the data returned by the API
-        
+        displaySuccessMsg(data)
         console.log(data);
     })
     .catch(error => {
@@ -66,4 +66,16 @@ function sentPostRequest(data){
     });
 
     
+}
+
+function displaySuccessMsg(data){
+    const flashContainer = document.querySelectorAll('.flashes')[0];
+    flashContainer.innerHTML =`
+    <div class="flash flash_notice">${data.meta.message}</div>
+    `
+    setTimeout(function() {
+        // Code to execute after 3 seconds
+        location.reload(true);
+      }, 3000); // 3000 milliseconds = 3 seconds
+      
 }
