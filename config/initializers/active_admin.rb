@@ -234,6 +234,8 @@ ActiveAdmin.setup do |config|
     config.register_javascript 'quantity_select.js'
     config.register_javascript 'input_select.js'
     config.register_javascript 'product_sort.js'
+    config.register_javascript 'create_order.js'
+
 
   # == CSV options
   #

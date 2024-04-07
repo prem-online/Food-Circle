@@ -4,7 +4,7 @@
             Sr
         </th>
         <th>
-            <input type='text' id='product-sort' placeholder='Name' class="product-sort" style='background-color:#e4eaec;'></input>
+            <input type='text' id='product-sort' placeholder='Item Name' class="product-sort" style='background-color:#e4eaec;'></input>
         </th>
         <th>
             Price
@@ -15,7 +15,7 @@
     </thead>
     <tbody id='new-order-table-body'>
         <% products.each_with_index do |product, index| %>
-            <tr class="product-row <%=product.id%> <%=product.name%>">
+            <tr class="product-row <%=product.id%> <%=product.name%>" data-position="<%=index+1%>" data-id=<%= product.id%>>
                 <td><%= index+1 %></td>
                 <td><%= product.name %></td>
                 <td><%= product.price %></td>
@@ -35,7 +35,7 @@
         </tr>
     </tbody>
 </table>
-<button>
+<button onclick="createOrder();">
     Proceed
 </button>
 <button>

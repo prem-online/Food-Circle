@@ -6,4 +6,16 @@ Rails.application.routes.draw do
   root "business/products#index"
   get 'users/guest'
   post 'new_custom_order/new'
+
+
+
+
+  # API ROUTES
+  namespace :api do
+    namespace :v1 do
+      # product routes
+      post 'orders', to: 'orders#create'
+    end
+  end
+
 end

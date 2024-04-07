@@ -6,6 +6,10 @@ $(document).ready(function() {
         if (isClearButton){
             let productId = e.target.className.split('-').pop();
             let quantityInput = document.getElementsByClassName(`product-quantity${productId}`)[0];
+            let parentClass = quantityInput.parentElement.parentElement.className
+            if (parentClass.includes('added')){
+                quantityInput.parentElement.parentElement.className = parentClass.replace('product-added','');
+            }
             let productPrice = parseInt(quantityInput.parentElement.previousElementSibling.innerText)
             let currentQty = quantityInput.value == '' ? 0 
             : parseInt(quantityInput.value)
@@ -17,6 +21,10 @@ $(document).ready(function() {
             let productId = e.target.className.split('-').pop();
             let addQuantity = e.target.className.split('-')[1];
             let quantityInput = document.getElementsByClassName(`product-quantity${productId}`)[0];
+            let parentClass = quantityInput.parentElement.parentElement.className
+            if (!parentClass.includes('added')){
+                quantityInput.parentElement.parentElement.className = parentClass+ ' product-added'
+            }
             let currentQty = quantityInput.value == '' ? 0 
             : parseInt(quantityInput.value)
            
