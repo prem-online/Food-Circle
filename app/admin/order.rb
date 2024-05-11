@@ -20,8 +20,11 @@ ActiveAdmin.register Order do
     column  'Order Date', :created_at do |object|
       object.created_at.strftime('%e %b at %I:%M%p, %Y')
     end
-    actions defaults: false do |product|
-      link_to 'View', business_order_path(product), class: 'view_link member_link'
+    actions defaults: false do |order|
+      link_to 'View', business_order_path(order), class: 'view_link member_link'
+    end
+    actions defaults: false do |order|
+      link_to 'Invoice', business2_path(order.id), class: 'view_link member_link'
     end
 
   end

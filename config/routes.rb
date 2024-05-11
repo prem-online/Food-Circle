@@ -18,4 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :business2 do
+    get 'products/:id/invoice', to: 'pages#invoice'
+  end
 end

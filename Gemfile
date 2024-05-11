@@ -57,6 +57,7 @@ group :development, :test do
   gem 'pry'
   gem 'rubocop', '~> 1.14'
   gem 'rubocop-ast', '~> 1.30'
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -90,3 +91,4 @@ gem 'jquery-rails'
 gem 'activeadmin_selectize'
 gem 'arbre'
 gem 'jsonapi-serializer', '~> 2.2'
+gem "prawn", "~> 2.5"
