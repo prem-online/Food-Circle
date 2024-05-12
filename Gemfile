@@ -16,13 +16,12 @@ gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
+# gem "turbo-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "stimulus-rails"
+# gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
@@ -62,7 +61,7 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
+  # gem "web-console"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -73,22 +72,22 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
-  gem "webdrivers"
+  # gem "capybara"
+  # gem "selenium-webdriver"
+  # gem "webdrivers"
 end
 gem 'activeadmin', '~> 2.14'
 gem 'sassc'
-gem 'language-converter', '~> 0.0.5'
+# gem 'language-converter', '~> 0.0.5'
 gem 'activeadmin-searchable_select'
 gem 'arctic_admin', '~> 3.3'
-gem "tailwindcss-rails", "~> 2.3"
+# gem "tailwindcss-rails", "~> 2.3"
 gem 'activeadmin_addons'
 gem 'sassc-rails', '>= 2.1.0'
 gem 'bootstrap-sass'
 # gem 'active_bootstrap_skin'
 gem 'jquery-rails'
 gem 'activeadmin_selectize'
-gem 'arbre'
+# gem 'arbre'
 gem 'jsonapi-serializer', '~> 2.2'
-gem "prawn", "~> 2.5"
+gem "jsbundling-rails", "~> 1.3"

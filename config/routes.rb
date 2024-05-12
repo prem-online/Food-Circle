@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
+  get 'root/index'
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "business/products#index"
+  # root "business/products#index"
+  root 'root#index'
+
   get 'users/guest'
   post 'new_custom_order/new'
 

@@ -1,7 +1,15 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-//= require jquery
-//= require jquery3
-//= require jquery_ujs
-//= require bootstrap-sprockets
-import "@hotwired/turbo-rails"
-import "controllers"
+// Entry point for the build script in your package.json
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import Home from './components/Main/Home';
+function App() {
+  return (
+    <>
+      <Home/>
+    </>
+);
+}
+
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(<App/>);
