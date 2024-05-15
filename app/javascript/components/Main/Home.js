@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import CheckIcon from '@mui/icons-material/Check';
+import Link from '@mui/material/Link';
 
 const Home = () => {
   return (
@@ -19,10 +20,16 @@ const Home = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             FoodBizTech
           </Typography>
-          <Button color="inherit">Home</Button>
-          <Button color="inherit">Features</Button>
-          <Button color="inherit">Pricing</Button>
-          <Button color="inherit">Contact</Button>
+          <Link href="#" color="inherit" underline="none">
+            <Button color="inherit">Home</Button>
+          </Link>
+            <Button color="inherit" component={Link} to="/features">Features</Button>
+          <Link href="#pricing" color="inherit" underline="none">
+            <Button color="inherit">Pricing</Button>
+          </Link>
+          <Link href="#contact" color="inherit" underline="none">
+            <Button color="inherit">Contact</Button>
+          </Link>
         </Toolbar>
       </AppBar>
 
