@@ -1,26 +1,13 @@
 // Navbar.js
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import React from "react";
+import { Typography } from "@mui/material";
 
 const Navbar = () => {
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          MyApp
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Button color="inherit">Home</Button>
-          <Button color="inherit">About</Button>
-          <Button color="inherit">Contact</Button>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
-}
+    <>
+    </>
+
+  )
+};
 
 export default Navbar;
