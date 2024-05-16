@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'root/index'
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -7,9 +6,9 @@ Rails.application.routes.draw do
   # root "business/products#index"
   root 'root#index'
 
-  get 'users/guest'
-  post 'new_custom_order/new'
-
+  get '*path', to: 'root#index', constraints: ->(request) do
+    !request.xhr? && request.format.html?
+  end
 
 
 
