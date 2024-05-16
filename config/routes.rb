@@ -4,13 +4,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "business/products#index"
-  root 'root#index'
-
+  root "root#index"
   get '*path', to: 'root#index', constraints: ->(request) do
-    !request.xhr? && request.format.html?
+    !request.xhr? && request.format.html? && !request.path.include?("business")
   end
-
-
 
   # API ROUTES
   namespace :api do
