@@ -3,3 +3,4 @@
 //= link_tree ../../javascript .js
 //= link_tree ../builds
 //= require active_admin
+//= link react/application.css
