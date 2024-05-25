@@ -7,9 +7,9 @@ import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import { useState } from 'react';
 
 const MuiButton = () => {
-  const [format,setFormat] = useState<string[]>([]);
+  const [format,setFormat] = useState<string|null>(null);
   console.log(format);
-  const handleFormatChange=(_event: React.MouseEvent<HTMLElement>, updateFormats: string[])=>{
+  const handleFormatChange=(_event: React.MouseEvent<HTMLElement>, updateFormats: string|null)=>{
     setFormat(updateFormats)
   }
   return (
@@ -77,7 +77,9 @@ const MuiButton = () => {
       </Stack>
 
       <Stack direction='row'>
-        <ToggleButtonGroup aria-label='text formatting' value={format} onChange={handleFormatChange}>
+        <ToggleButtonGroup aria-label='text formatting' value={format} onChange={handleFormatChange} size='small' color='primary' orientation='vertical'
+        exclusive
+        >
           <ToggleButton value='bold' aria-label='bold'><FormatBoldIcon/></ToggleButton>
           <ToggleButton value='italic' aria-label='italic'><FormatItalicIcon/></ToggleButton>
           <ToggleButton value='underline' aria-label='underline'><FormatUnderlinedIcon/></ToggleButton>
