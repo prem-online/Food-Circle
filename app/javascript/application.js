@@ -14,6 +14,7 @@ import {
 
 import Features from './components/Main/Features';
 import Signup from './components/authentication/Signup';
+import Login from './components/authentication/Login';
 // import PricingPage from './PricingPage';
 // import ContactPage from './ContactPage';
 function App() {
@@ -27,6 +28,8 @@ function App() {
           <Route path="/buttons" element={<MuiButton/>} />
           <Route path="/chatgpt" element={<Chatgpt/>} />
           <Route path="/signup" element={<Signup/>} />
+          <Route path="/login" element={<Login/>} />
+
 
 
           {/* <Route path="/pricing" component={PricingPage} /> */}
