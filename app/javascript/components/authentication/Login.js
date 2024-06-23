@@ -39,9 +39,7 @@ const Login = () => {
         <Stack direction='row' 
             sx={{mx: 'auto',mt:'10%', height: '100%'}}
         >
-
             <Stack direction='column'>
-
                 <Stack>
                     <TextField
                         id="email-auth"

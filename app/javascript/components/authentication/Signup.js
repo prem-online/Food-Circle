@@ -1,86 +1,164 @@
-import React from 'react'
-import { Box,Button, ButtonGrou,Stack, Typography,Stack} from '@mui/material'
-import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
-
+import { Box, Button, Stack, TextField, Typography, Snackbar, Alert } from '@mui/material';
+import validator from 'validator';
+import axios from 'axios';
+import { API_URL, MODULE_SUCCESSFULL_CREATED } from '../../constants';
 function Signup() {
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState(false);
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [emailHelperText, setEmailHelperText] = useState('');
+  const [passwordHelperText, setPasswordHelperText] = useState('');
+  const [confirmPasswordHelperText, setConfirmPasswordHelperText] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
+  const [open, setOpen] = useState(false);
 
-    const handleSubmit = (event) =>{
-        event.preventDefault();
-        console.log('Submitted Success');
-        // console.log(event.target.email.value);
-        console.log(event.target);
-        console.log(password, email,confirmPassword);
-        if (!password) {
-            setError(true);
-          } else {
-            setError(false);
-            // Handle form submission
-            console.log('Password:', password);
-          }
+  const [severity, setSeverity] = useState('success');
+  
+  const validateEmail = (email) => {
+    if (!validator.isEmail(email)) {
+      setEmailHelperText('Please enter a valid email');
+      setEmailError(true);
+    } else {
+      setEmailHelperText('');
+      setEmailError(false);
     }
+  };
+
+  const validatePassword = (password) => {
+    if (!validator.isStrongPassword(password)) {
+      setPasswordHelperText('A strong password needs 8+ characters, one lowercase, one uppercase, one number, and one symbol.');
+      setPasswordError(true);
+    } else {
+      setPasswordHelperText('');
+      setPasswordError(false);
+    }
+  };
+
+  const validateConfirmPassword = (confirmPassword) => {
+    if (confirmPassword !== password) {
+      setConfirmPasswordHelperText('Password does not match confirm password.');
+      setConfirmPasswordError(true);
+    } else {
+      setConfirmPasswordHelperText('');
+      setConfirmPasswordError(false);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    validateEmail(email);
+    validatePassword(password);
+    validateConfirmPassword(confirmPassword);
+    if (!emailError && !passwordError && !confirmPasswordError) {
+      createAccount(email, password, confirmPassword);
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const createAccount = async (email, password, confirmPassword) => {
+    const url = 'api/v1/accounts/';
+    const data = {
+      account: {
+        email: email,
+        password: password,
+        confirm_password: confirmPassword
+      }
+    };
+    // Assuming PostRequest returns a promise, handle response accordingly
+    try {
+            const response = await axios.post(`${API_URL}${url}`, data);
+            setResponseMessage(`Account ${MODULE_SUCCESSFULL_CREATED}`);
+            setOpen(true);
+            setSeverity('success');
+        console.log(response)
+      } catch (error) {
+            setResponseMessage(error.response.data[0]);
+            setOpen(true);
+            setSeverity('error');
+      }
+  };
+
   return (
     <Box
-    component="form"
-    sx={{ 
+      component="form"
+      sx={{
         mx: 'auto',
-        height: '20vh',
+        height: 'auto',
         width: '40vh',
-        mt:10,
+        mt: 10,
         display: 'flex',
-        '& .MuiTextField-root': { m: 1,
-        } 
-     }}
-    onSubmit={handleSubmit}
+        flexDirection: 'column',
+        alignItems: 'center',
+        '& .MuiTextField-root': {
+          m: 1,
+          width: '35ch',
+        }
+      }}
+      onSubmit={handleSubmit}
     >
-        <Stack direction='column'
-            sx={{mx: 'auto',mt:'10%', height: '100%'}}
+  
+      <Stack spacing={2}>
+        <Snackbar 
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            open={open}
+            autoHideDuration={3000}
+            key={'top' + 'center'}
+            onClose={handleClose}
         >
-            <Stack>
-
-                    <TextField
-                        id="email-auth"
-                        label="Email"
-                        defaultValue=""
-                        onChange={(e) => setEmail(e.target.value)}
-                        
-                        required
-                        />
-
-                    <TextField
-                        id="password-auth"
-                        label="Password"
-                        type="password"
-                        error={error}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        />
-                    
-                
-            </Stack>
-            <Stack>
-                    <TextField
-                        id="password-confirmation-auth"
-                        label="Password Confirmation"
-                        defaultValue=""
-                        required
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                    <Typography>
-                        Already have an account?
-                        <Button href='/login'>Login</Button>
-                    </Typography>
-            </Stack>
-            <Stack>
-                <Button type="submit" variant='contained'>Signup</Button>
-            </Stack>
-        </Stack>
+            <Alert
+                onClose={handleClose}
+                severity={severity}
+                variant="filled"
+                sx={{ width: '100%' }}
+            >
+             {responseMessage}
+            </Alert>
+        </Snackbar>
+        
+        <TextField
+          id="email-auth"
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          error={emailError}
+          helperText={emailHelperText}
+          required
+        />
+        <TextField
+          id="password-auth"
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          error={passwordError}
+          helperText={passwordHelperText || 'A password needs 8+ characters, one lowercase, one uppercase, one number, and one symbol.'}
+          required
+        />
+        <TextField
+          id="password-confirmation-auth"
+          label="Password Confirmation"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          error={confirmPasswordError}
+          helperText={confirmPasswordHelperText}
+          required
+        />
+        <Typography>
+          Already have an account? <Button href='/login'>Login</Button>
+        </Typography>
+        <Button type="submit" variant='contained'>Signup</Button>
+      </Stack>
     </Box>
-  )
+  );
 }
 
-export default Signup
+export default Signup;

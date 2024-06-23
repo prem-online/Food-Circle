@@ -3,7 +3,7 @@ import { Stack, Button } from '@mui/material'
 const Footer = () => {
   return (
     <Stack direction='column' >
-      <Button  sx={{mx: 'auto',mt:'10%', height: '100%'}}>
+      <Button  sx={{mx: 'auto',mt:'30%', height: '100%'}}>
         @2024 Food Circle
       </Button>
     </Stack>
