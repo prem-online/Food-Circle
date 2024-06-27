@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Button, Stack, TextField, Typography, Snackbar, Alert } from '@mui/material';
 import validator from 'validator';
 import axios from 'axios';
-import { API_URL, MODULE_SUCCESSFULL_CREATED } from '../../constants';
+import { BASE_URL, MODULE_SUCCESSFULL_CREATED } from '../../constants';
 function Signup() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -15,7 +15,6 @@ function Signup() {
   const [confirmPasswordHelperText, setConfirmPasswordHelperText] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
   const [open, setOpen] = useState(false);
-
   const [severity, setSeverity] = useState('success');
   
   const validateEmail = (email) => {
@@ -73,7 +72,7 @@ function Signup() {
     };
     // Assuming PostRequest returns a promise, handle response accordingly
     try {
-            const response = await axios.post(`${API_URL}${url}`, data);
+            const response = await axios.post(`${BASE_URL}${url}`, data);
             setResponseMessage(`Account ${MODULE_SUCCESSFULL_CREATED}`);
             setOpen(true);
             setSeverity('success');

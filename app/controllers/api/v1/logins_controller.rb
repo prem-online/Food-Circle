@@ -15,7 +15,7 @@ module Api
                         }
                     ), status: :ok
                 else
-                    render json: { error: "Invalid email or password" }, status: :unauthorized
+                    render json: ["Invalid email or password"], status: :unauthorized
                 end
             end
 
@@ -23,7 +23,7 @@ module Api
                 if @current_user.update(current_token: nil)
                     render json: {message: 'Logged out successfully'}, status: :ok
                 else
-                    render json: {error: 'Cannot Logged out successfully'}, status: :unprocessable_entity
+                    render json: ['Cannot Logged out successfully'], status: :unprocessable_entity
                 end
             end
 
@@ -31,7 +31,7 @@ module Api
 
             def set_user
                 @current_user = Account.find_by_email(params[:email])
-                return render json: { error: "Not Account found, please signup" }, status: :not_found unless  @current_user
+                return render json: ["Not Account found, please signup"], status: :not_found unless  @current_user
             end
 
         end
