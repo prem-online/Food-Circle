@@ -3,8 +3,10 @@ import React from "react";
 import { Typography, Stack, ButtonGroup, Button, IconButton } from "@mui/material";
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 const Navbar = () => {
+  const token = localStorage.getItem('token');
   return (
-    <Stack direction='row'>
+    token == undefined ?
+   ( <Stack direction='row'>
 
       <Stack direction='row'>
         <IconButton aria-label="logo" href="/">
@@ -33,7 +35,9 @@ const Navbar = () => {
           <Button variant="contained">Learn More</Button>
         </Stack>
       </Stack>
-    </Stack>
+    </Stack>)
+    :
+    <div></div>
   )
 };
 
