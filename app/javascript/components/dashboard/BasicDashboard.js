@@ -19,7 +19,7 @@ const BasicDashboard = () => {
         sx={{ mx: "auto", pb: 1, pt: 1 }}
       >
         <ButtonGroup>
-          <Button variant="primary" href="/">
+          <Button variant="primary" href="/order/list">
             Orders
           </Button>
           <Button variant="primary" href="/about">

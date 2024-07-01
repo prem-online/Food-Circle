@@ -1,9 +1,6 @@
 import React from 'react'
 import Home from './Main/Home'
 
-// import MuiButton from './Mui/MuiButton'
-import MuiButton from './Mui/MuiButton'
-import Chatgpt from './HomePageComponents/Chatgpt';
 import {
   BrowserRouter,
   Routes, // instead of "Switch"
@@ -15,14 +12,13 @@ import Signup from './authentication/Signup';
 import Login from './authentication/Login';
 import BasicDashboard from './dashboard/BasicDashboard';
 import Logout from './authentication/Logout';
+import OrderList from './Orders/OrderList';
 const Paths = () => {
   return (
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/features" element={<Features/>} />
-          <Route path="/buttons" element={<MuiButton/>} />
-          <Route path="/chatgpt" element={<Chatgpt/>} />
 
           {/* Authentication  */}
           <Route path="/signup" element={<Signup/>} />
@@ -32,7 +28,7 @@ const Paths = () => {
           {/* User Dashbaords */}
           <Route path="/dashboard" element={<BasicDashboard/>} />
 
-          {/* <Route path="/pricing" component={PricingPage} /> */}
+          <Route path="/order/list" component={<OrderList/>} />
           {/* <Route path="/contact" component={ContactPage} /> */}
         </Routes>
     </BrowserRouter>
