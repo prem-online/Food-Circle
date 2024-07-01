@@ -1,7 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Box,Button,Stack, Typography, Snackbar, Alert } from '@mui/material'
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
 import axios from 'axios';
 import { BASE_URL, LOGGED_IN_SUCCESSFULLY } from '../../constants';
 
@@ -12,33 +11,36 @@ const Login = () => {
     const [open, setOpen] = useState(false);
     const [responseMessage, setResponseMessage] = useState('');
     const [severity, setSeverity] = useState('success');
+    const [token, setToken] = useState(undefined);
     const handleClose = () => {
         setOpen(false);
       };
+
     const sendLoginRequest = async (email, password) => {
         const url = "/api/v1/logins";
         const data = {
               email: email,
               password: password,
         };
-
         try {
             const response = await axios.post(`${BASE_URL}${url}`, data);
             setResponseMessage(`${LOGGED_IN_SUCCESSFULLY}`);
             setOpen(true);
+            setToken(response?.data.meta.token);
             setSeverity('success');
-      } catch (error) {
-            setResponseMessage(error.response.data[0]);
+            localStorage.setItem('token', token)
+            window.location.href = '/dashboard';
+      } catch (err) {
+        console.log(err);
+            setResponseMessage(err.response.data[0]);
             setOpen(true);
+            setError(true);
             setSeverity('error');
       }
 
     }
     const handleSubmit = (event) =>{
         event.preventDefault();
-        console.log('Submitted Success');
-        // console.log(event.target.email.value);
-        console.log(event.target);
         sendLoginRequest(email, password)
     }
 

@@ -30,7 +30,7 @@ const Efficiency = () => {
                 Our software provides powerful tools to help you efficiently manage your inventory. With features like real-time tracking, automated stock alerts, and comprehensive reporting, you can stay on top of your inventory and make data-driven decisions.
               </Typography>
               <Button variant="outlined" sx={{ mr: 2 }}>Learn More</Button>
-              <Button variant="text" endIcon={<ChevronRightIcon />}>Sign Up</Button>
+              <Button variant="text" endIcon={<ChevronRightIcon />} href="/signup">Sign Up</Button>
             </CardContent>
           </Grid>
         </Grid>

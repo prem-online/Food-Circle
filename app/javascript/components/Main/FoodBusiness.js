@@ -15,7 +15,7 @@ const FoodBusiness = () => {
                 Our software solutions revolutionize the way food businesses operate, streamlining processes and boosting efficiency.
               </Typography>
               <Button variant="contained" color="primary" sx={{ mr: 2 }}>Learn More</Button>
-              <Button variant="outlined">Sign Up</Button>
+              <Button variant="outlined" href="/signup">Sign Up</Button>
             </CardContent>
           </Grid>
           <Grid item xs={12} sm={5}>
