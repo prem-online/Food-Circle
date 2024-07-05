@@ -11,7 +11,7 @@ module Api
             end
 
             def set_current_token
-                @token = Codec.encode({id: @current_user&.id})
+                @token = JsonWebToken.encode({id: @current_user&.id})
             end
 
             def update_current_token
