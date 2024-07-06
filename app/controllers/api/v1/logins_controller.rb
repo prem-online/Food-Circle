@@ -13,10 +13,12 @@ module Api
         end
 
         def refresh
-            refresh_token = RefreshToken.find_by(token: params[:refresh_token])
+            refresh_token = RefreshToken.includes(:account).find_by(token: params[:refresh_token])
             if refresh_token && refresh_token.expires_at > Time.current
               access_token = encode_access_token(account_id: refresh_token.account_id)
-              render json: { token: access_token }
+              new_refresh_token = create_refresh_token(refresh_token.account)
+              refresh_token.delete
+              render json: { token: access_token, refresh: new_refresh_token }
             else
               render json: { error: 'Invalid or expired refresh token' }, status: :unauthorized
             end
@@ -40,7 +42,7 @@ module Api
           refresh_token = create_refresh_token(@current_user)
           render json: AccountSerializer.new(
             @current_user,
-            meta: { message: 'Logged in successfully', token: access_token, refresh_token: refresh_token }
+            meta: { message: 'Logged in successfully', login_info: {token: access_token, refresh_token: refresh_token, logged_in_at: DateTime.now} }
           ), status: :ok
         end
   
@@ -54,10 +56,10 @@ module Api
         end
   
         def create_refresh_token(account)
-          RefreshToken.create!(account: account, expires_at: 7.days.from_now).token
+          RefreshToken.create!(account: account, expires_at: 1.year.from_now).token
         end
   
       end
     end
-  end
+end
   

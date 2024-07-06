@@ -19,7 +19,7 @@ const Logout = () => {
   useEffect(() => {
     // Redirect to login page when counter reaches 0
     if (counter === 0) {
-      localStorage.removeItem('token');
+      localStorage.clear();
       navigate('/login');
     }
   }, [counter, navigate]);

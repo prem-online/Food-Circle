@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   root "root#index"
   
   get '*path', to: 'root#index', constraints: ->(request) do
-    !request.xhr? && request.format.html? && (!request.path.include?('business'))
+    allowed_paths_regex = /\b(api|business|admin)\b/
+    !request.xhr? && request.format.html? && !allowed_paths_regex.match?(request.path)
   end
 
   # API ROUTES

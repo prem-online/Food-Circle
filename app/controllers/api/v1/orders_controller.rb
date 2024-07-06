@@ -2,6 +2,7 @@ module Api
     module V1
         class OrdersController < ApplicationController 
             skip_before_action :verify_authenticity_token
+            
             def create
                 @order = Order.new(order_params)
                 add_order_items_to_order
@@ -12,6 +13,10 @@ module Api
                 end
             end
 
+            def index
+                orders = Order.includes(:order_items).order(created_at: :desc).page(params[:page]).per(params[:per]||50)
+                render json: OrderSerializer.new(orders).serializable_hash.to_json, status: :ok
+            end
 
             private
 

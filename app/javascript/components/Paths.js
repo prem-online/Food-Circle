@@ -28,7 +28,7 @@ const Paths = () => {
           {/* User Dashbaords */}
           <Route path="/dashboard" element={<BasicDashboard/>} />
 
-          <Route path="/order/list" component={<OrderList/>} />
+          <Route path="/order/list" element={<OrderList/>} />
           {/* <Route path="/contact" component={ContactPage} /> */}
         </Routes>
     </BrowserRouter>
