@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_06_064356) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_07_133427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_06_064356) do
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_products_on_account_id"
   end
 
   create_table "refresh_tokens", force: :cascade do |t|
@@ -90,5 +92,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_06_064356) do
   end
 
   add_foreign_key "orders", "accounts"
+  add_foreign_key "products", "accounts"
   add_foreign_key "refresh_tokens", "accounts"
 end

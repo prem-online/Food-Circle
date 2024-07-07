@@ -6,6 +6,8 @@ module Api
             def create
                 @order = Order.new(order_params)
                 add_order_items_to_order
+                account = Account.find_by(:email => ENV['ADMIN_EMAIL'])
+                @order.account_id = account.id
                 if @order.save
                     render json: OrderSerializer.new(@order, meta: {message: 'Order created successfully'}), status: :created
                 else

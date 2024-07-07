@@ -35,6 +35,6 @@ export const readTime = (time) => {
     hour12: true, // Set to true if you prefer 12-hour format
     timeZone: 'UTC' // Adjust according to your time zone preference
   };
-  const humanReadable = date.toLocaleString(options);
+  const humanReadable = date.toLocaleString('en-IN', options);
   return humanReadable
 }

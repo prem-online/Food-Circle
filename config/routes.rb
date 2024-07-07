@@ -24,6 +24,7 @@ Rails.application.routes.draw do
           post 'refresh', to: 'logins#refresh'
         end
       end
+      resources :products, only: [:index, :show]
     end
   end
 
