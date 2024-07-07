@@ -6,7 +6,8 @@ class Order < ApplicationRecord
 =end
     ADMIN_EMAIL=ENV['ADMIN_EMAIL']
     has_many :order_items, dependent: :delete_all
-    has_many :products, through: :order_items  
+    has_many :products, through: :order_items
+    belongs_to :account
     validates :order_items, presence: true
 
     before_create :add_order_number, :add_default_account

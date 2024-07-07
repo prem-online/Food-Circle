@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Stack, Pagination } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Stack, Pagination, Container } from '@mui/material';
 import BasicDashboard from '../dashboard/BasicDashboard';
 import {sleep, readTime} from '../../helpers/common';
 import { useLogin } from '../../helpers/useLogin';
 import { BASE_URL } from '../../constants';
+import OrderSkeleton from './OrderSkeleton';
 const OrderList = () => {
   const [page, setPage] = useState(1);
   const rowsPerPage = 2;
@@ -50,49 +51,59 @@ const OrderList = () => {
       }
   }
   return (
-    <div>
+    <>
       <BasicDashboard />
-      <TableContainer component={Paper}>
-        <Table ref={tableRef}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Order Number</TableCell>
-              <TableCell>Ordered Items</TableCell>
-              <TableCell>Total</TableCell>
-              <TableCell>Order Date</TableCell>
-
-              <TableCell>Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {loading ? (
+      <Container>
+        <TableContainer component={Paper}
+          sx={{
+            marginLeft: 5,
+            marginRight: 5
+          }}>
+          <Table ref={tableRef}>
+            <TableHead>
               <TableRow>
-                <TableCell colSpan={6}>Loading...</TableCell>
+                <TableCell>Order Number</TableCell>
+                <TableCell>Ordered Items</TableCell>
+                <TableCell>Total</TableCell>
+                <TableCell>Order Date</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
-            ) : (
-              orders.map((order) => (
-                <TableRow key={order.id}>
-                  <TableCell>{order.attributes.order_number}</TableCell>
-                  <TableCell>
-                    {orderItemPresenter(order,'first')}
-                    {
-                      orderItemPresenter(order,'length') > 1 ? (
-                        <a href='#'> See all</a>
-                      ):(<></>)
-                    }
-                  </TableCell>
-                  <TableCell>{order.attributes.total}</TableCell>
-                  <TableCell>{readTime(order.attributes.created_at)}</TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Stack direction="row" spacing={4} ml={4} mr={2} sx={{ mx: 'auto', pb: 1, pt: 1 }}>
-        <Pagination count={10} color="primary" onChange={handlePagination} />
-      </Stack>
-    </div>
+            </TableHead>
+            <TableBody>
+              {loading ? (
+                <>
+                  <OrderSkeleton/>
+                  <OrderSkeleton/>
+                  <OrderSkeleton/>
+                  <OrderSkeleton/>
+                  <OrderSkeleton/>
+                </>
+              ) : (
+                orders.map((order) => (
+                  <TableRow key={order.id}>
+                    <TableCell>{order.attributes.order_number}</TableCell>
+                    <TableCell>
+                      {orderItemPresenter(order,'first')}
+                      {
+                        orderItemPresenter(order,'length') > 1 ? (
+                          <a href='#'> See all</a>
+                        ):(<></>)
+                      }
+                    </TableCell>
+                    <TableCell>{order.attributes.total}</TableCell>
+                    <TableCell>{readTime(order.attributes.created_at)}</TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Stack 
+          >
+          <Pagination sx={{ mx: "auto", pb: 1, pt: 1 }} count={10} color="primary" onChange={handlePagination} />
+        </Stack>
+      </Container>
+    </>
   );
 };
 

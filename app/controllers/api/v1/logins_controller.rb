@@ -1,7 +1,6 @@
 module Api
     module V1
       class LoginsController < ApplicationController
-        before_action :set_current_user, only: :destroy
         before_action :find_user_by_email, only: :create
   
         def create
@@ -15,7 +14,7 @@ module Api
         def refresh
             refresh_token = RefreshToken.includes(:account).find_by(token: params[:refresh_token])
             if refresh_token && refresh_token.expires_at > Time.current
-              access_token = encode_access_token(account_id: refresh_token.account_id)
+              access_token = encode_access_token({account_id: refresh_token.account_id})
               new_refresh_token = create_refresh_token(refresh_token.account)
               refresh_token.delete
               render json: { token: access_token, refresh: new_refresh_token }
@@ -38,7 +37,7 @@ module Api
         end
   
         def render_successful_login
-          access_token = encode_access_token(account_id: @current_user.id)
+          access_token = encode_access_token({account_id: @current_user.id})
           refresh_token = create_refresh_token(@current_user)
           render json: AccountSerializer.new(
             @current_user,
@@ -52,7 +51,7 @@ module Api
   
         def encode_access_token(payload)
           payload[:exp] = 1.hour.from_now.to_i
-          JWT.encode(payload, Rails.application.secrets.secret_key_base)
+          JWT.encode(payload, ENV['JWT_SECRET_KEY'])
         end
   
         def create_refresh_token(account)

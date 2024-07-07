@@ -24,6 +24,17 @@ export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-export readTime = () => {
-  
+export const readTime = (time) => {
+  const date = new Date(time);
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true, // Set to true if you prefer 12-hour format
+    timeZone: 'UTC' // Adjust according to your time zone preference
+  };
+  const humanReadable = date.toLocaleString(options);
+  return humanReadable
 }
