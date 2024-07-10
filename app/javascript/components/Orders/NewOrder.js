@@ -7,6 +7,7 @@ import { useLogin } from '../../helpers/useLogin';
 import { BASE_URL } from '../../constants';
 import { sleep } from '../../helpers/common';
 import OrderSkeleton from './OrderSkeleton';
+import { ContactSupportOutlined } from '@mui/icons-material';
 const NewOrder = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,14 +36,19 @@ const NewOrder = () => {
       });
   }
 
-  const showQuantity = (id) => {
-    const ids = Object.keys(productQuantity).map(k=> `${extractInteger(k)}`)
-    if(!ids.includes(`${id}`)){
-      return '' 
+  const showQuantity = (id, caller="addQuantity") => {
+    console.log('showQuantity');
+    if(caller==="row"){
+      const ids = Object.keys(productQuantity).map(k=> `${extractInteger(k)}`)
+      if(!ids.includes(`${id}`)){
+        return '' 
+      }
+      const quantity = productQuantity[`pd-${id}`] 
+      quantity === undefined ? '' : quantity
+      return quantity
+    }else{
+      document.getElementById(`quantity${id}`).value = productQuantity[`pd-${id}`]
     }
-    const quantity = productQuantity[`pd-${id}`] 
-    quantity === undefined ? '' : quantity
-    return quantity
   }
 
   const addQuantity = (id, quantity) => {
@@ -50,8 +56,11 @@ const NewOrder = () => {
       setProductQuantity({ [`pd-${id}`]: quantity })
     }else{
       const newQuantity = productQuantity[`pd-${id}`] === undefined ? quantity : productQuantity[`pd-${id}`]+quantity
-      setProductQuantity({ [`pd-${id}`]: newQuantity })
+      let obj = productQuantity;
+      obj[`pd-${id}`] = newQuantity;
+      setProductQuantity(obj);
     }
+    showQuantity(id,"addQuantity")
   }
 
   const extractInteger = (str)=>{
@@ -98,19 +107,17 @@ const NewOrder = () => {
                     
                     <TextField width={10} id={"quantity"+row.id} label="" variant="outlined"
                       size="small"
-                      value={Object.keys(productQuantity).length !== 0 ? (
-                        showQuantity(row.id)
-                      ) : ''}
+                      value={showQuantity(row.id,'row')}
                       />
                     <Stack mt={1}>
                       <Stack direction="row" spacing={2}>
                       <Fab ml={2} color="primary" aria-label="add" onClick={()=> {addQuantity(row.id,1)}}>
                         +1
                       </Fab>
-                      <Fab color="primary" aria-label="add" onClick={()=> {setProductQuantity({ [`pd-${row.id}`]: 3 })}}>
+                      <Fab color="primary" aria-label="add" onClick={()=> {addQuantity(row.id,3)}}>
                         +3
                       </Fab>
-                      <Fab color="primary" aria-label="add" onClick={()=> {setProductQuantity({ [`pd-${row.id}`]: 10 })}}>
+                      <Fab color="primary" aria-label="add" onClick={()=> {addQuantity(row.id,10)}}>
                         +10
                       </Fab>
                       </Stack>
