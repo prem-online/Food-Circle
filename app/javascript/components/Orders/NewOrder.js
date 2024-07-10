@@ -20,8 +20,6 @@ const NewOrder = () => {
   },[token])
 
   useEffect(()=>{
-      console.log('Here it is:')
-      console.log(productQuantity);
   },[productQuantity])
 
   const fetchMenuItems = async() => {
@@ -38,6 +36,10 @@ const NewOrder = () => {
   }
 
   const showQuantity = (id) => {
+    const ids = Object.keys(productQuantity).map(k=> `${extractInteger(k)}`)
+    if(!ids.includes(`${id}`)){
+      return '' 
+    }
     const quantity = productQuantity[`pd-${id}`] 
     quantity === undefined ? '' : quantity
     return quantity
@@ -50,6 +52,14 @@ const NewOrder = () => {
       const newQuantity = productQuantity[`pd-${id}`] === undefined ? quantity : productQuantity[`pd-${id}`]+quantity
       setProductQuantity({ [`pd-${id}`]: newQuantity })
     }
+  }
+
+  const extractInteger = (str)=>{
+    const match = str.match(/\d+/);
+    if (match) {
+      return parseInt(match[0]);
+    }
+    return null; // Return null if no number is found
   }
   return (
     <>
