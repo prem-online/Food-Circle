@@ -4,12 +4,14 @@ class Order < ApplicationRecord
       t.serial :order_number
       t.float :total
 =end
-    has_many :order_items, dependent: :destroy
-    has_many :products, through: :order_items  
-
+    ADMIN_EMAIL = ENV['ADMIN_EMAIL']
+    has_many :order_items, dependent: :delete_all
+    has_many :products, through: :order_items
+    belongs_to :account
     validates :order_items, presence: true
 
     before_create :add_order_number
+    before_save :add_default_account , if: :new_record?
     after_create :add_order_total
     accepts_nested_attributes_for :order_items, :products
 
@@ -25,6 +27,13 @@ class Order < ApplicationRecord
 
     def add_order_number
         self.order_number = new_order_number
+    end
+
+    def add_default_account
+        return if self.account_id
+        account = Account.find_by(:email => ADMIN_EMAIL)
+        return unless account
+        self.account_id = account.id
     end
 
     def add_item_price

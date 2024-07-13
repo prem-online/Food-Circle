@@ -1,39 +1,64 @@
 module Api
     module V1
-        class LoginsController < ApplicationController
-            before_action :set_current_user, only: :destroy
-            before_action :set_user, only: :create
-            after_action :update_current_token, only: :create
-            
-            def create
-                if @current_user && @current_user.authenticate(params[:password])
-                    render json: AccountSerializer.new(
-                        @current_user,
-                        meta:{
-                            message: 'Logged in successfully',
-                            token: set_current_token
-                        }
-                    ), status: :ok
-                else
-                    render json: ["Invalid email or password"], status: :unauthorized
-                end
-            end
-
-            def destroy
-                if @current_user.update(current_token: nil)
-                    render json: {message: 'Logged out successfully'}, status: :ok
-                else
-                    render json: ['Cannot Logged out successfully'], status: :unprocessable_entity
-                end
-            end
-
-            private 
-
-            def set_user
-                @current_user = Account.find_by_email(params[:email])
-                return render json: ["Not Account found, please signup"], status: :not_found unless  @current_user
-            end
-
+      class LoginsController < ApplicationController
+        before_action :find_user_by_email, only: :create
+  
+        def create
+          if @current_user&.authenticate(params[:password])
+            render_successful_login
+          else
+            render_unauthorized
+          end
         end
+
+        def refresh
+            refresh_token = RefreshToken.includes(:account).find_by(token: params[:refresh_token])
+            if refresh_token && refresh_token.expires_at > Time.current
+              access_token = encode_access_token({account_id: refresh_token.account_id})
+              new_refresh_token = create_refresh_token(refresh_token.account)
+              refresh_token.delete
+              render json: { token: access_token, refresh: new_refresh_token }
+            else
+              render json: { error: 'Invalid or expired refresh token' }, status: :unauthorized
+            end
+        end
+  
+        def logout
+            refresh_token = RefreshToken.find_by(token: params[:refresh_token])
+            refresh_token.destroy if refresh_token
+            render json: { message: 'Logged out' }
+        end
+  
+        private
+  
+        def find_user_by_email
+          @current_user = Account.find_by(email: params[:email])
+          render json: { errors: ['User not found, please signup'] }, status: :not_found unless @current_user
+        end
+  
+        def render_successful_login
+          access_token = encode_access_token({account_id: @current_user.id})
+          refresh_token = create_refresh_token(@current_user)
+          render json: AccountSerializer.new(
+            @current_user,
+            meta: { message: 'Logged in successfully', login_info: {token: access_token, refresh_token: refresh_token, logged_in_at: DateTime.now} }
+          ), status: :ok
+        end
+  
+        def render_unauthorized
+          render json: { errors: ['Invalid email or password'] }, status: :unauthorized
+        end
+  
+        def encode_access_token(payload)
+          payload[:exp] = 1.hour.from_now.to_i
+          JWT.encode(payload, ENV['JWT_SECRET_KEY'])
+        end
+  
+        def create_refresh_token(account)
+          RefreshToken.create!(account: account, expires_at: 1.year.from_now).token
+        end
+  
+      end
     end
 end
+  

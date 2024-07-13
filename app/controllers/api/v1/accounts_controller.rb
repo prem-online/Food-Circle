@@ -1,8 +1,6 @@
 module Api
     module V1
         class AccountsController < ApplicationController
-            after_action :update_current_token,  only: :create
-            
             def index
                 render json: Account.all
             end
@@ -17,7 +15,7 @@ module Api
                     render json: AccountSerializer.new(
                         @current_user,
                         meta: {
-                            token: set_current_token,
+                            token: encode_user_token,
                             message: 'Account was successfully created'
                         }), status: :created
                 else

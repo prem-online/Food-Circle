@@ -11,7 +11,6 @@ const Login = () => {
     const [open, setOpen] = useState(false);
     const [responseMessage, setResponseMessage] = useState('');
     const [severity, setSeverity] = useState('success');
-    const [token, setToken] = useState(undefined);
     const handleClose = () => {
         setOpen(false);
       };
@@ -26,9 +25,8 @@ const Login = () => {
             const response = await axios.post(`${BASE_URL}${url}`, data);
             setResponseMessage(`${LOGGED_IN_SUCCESSFULLY}`);
             setOpen(true);
-            setToken(response?.data.meta.token);
             setSeverity('success');
-            localStorage.setItem('token', token)
+            localStorage.setItem('login_info', JSON.stringify(response.data.meta.login_info))
             window.location.href = '/dashboard';
       } catch (err) {
         console.log(err);

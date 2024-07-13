@@ -1,22 +1,19 @@
 module Api
-    module V1
-        class ApplicationController < ActionController::Base
-            protect_from_forgery with: :null_session
+  module V1
+    class ApplicationController < ActionController::Base
+      include JsonWebTokenValidation
+      protect_from_forgery with: :null_session
 
-            def set_current_user
-                @current_user = Account.find_by(current_token: params[:token] || request.headers['token'])
-                unless  @current_user
-                    return render json: "Server cannot process your request", status: :bad_request
-                end
-            end
+      def encode_user_token
+        JsonWebToken.encode({ id: @current_user&.id })
+      end
 
-            def set_current_token
-                @token = Codec.encode({id: @current_user&.id})
-            end
+      def current_user
+        @current_user = Account.find_by(id: @token['account_id'])
+        return if @current_user
 
-            def update_current_token
-                @current_user.update(current_token: @token)
-            end
-        end
+        render json: { message: 'Account not found' }, status: :not_found
+      end
     end
+  end
 end

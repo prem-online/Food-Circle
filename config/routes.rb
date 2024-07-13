@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   root "root#index"
   
   get '*path', to: 'root#index', constraints: ->(request) do
-    !request.xhr? && request.format.html? && (!request.path.include?('business'))
+    allowed_paths_regex = /\b(api|business|admin)\b/
+    !request.xhr? && request.format.html? && !allowed_paths_regex.match?(request.path)
   end
 
   # API ROUTES
@@ -15,12 +16,18 @@ Rails.application.routes.draw do
     namespace :v1 do
       # product routes
       post 'orders', to: 'orders#create'
+      get 'orders', to: 'orders#index'
       resources :accounts, only: [:create]
       resources :logins, only: [:create] do
         collection do
-          delete '/', to: 'logins#destroy'
+          delete '/', to: 'logins#logout'
+          post 'refresh', to: 'logins#refresh'
         end
       end
+      resources :products, only: [:index, :show]
+    end
+    namespace :v2 do
+      post 'orders', to: 'orders#create'
     end
   end
 

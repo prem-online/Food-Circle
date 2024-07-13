@@ -94,3 +94,4 @@ gem "jsbundling-rails", "~> 1.3"
 
 gem "bcrypt", "~> 3.1"
 gem "jwt", "~> 2.8"
+gem 'kaminari'

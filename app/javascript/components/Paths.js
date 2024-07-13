@@ -13,6 +13,7 @@ import Login from './authentication/Login';
 import BasicDashboard from './dashboard/BasicDashboard';
 import Logout from './authentication/Logout';
 import OrderList from './Orders/OrderList';
+import NewOrder from './Orders/NewOrder';
 const Paths = () => {
   return (
     <BrowserRouter>
@@ -28,8 +29,8 @@ const Paths = () => {
           {/* User Dashbaords */}
           <Route path="/dashboard" element={<BasicDashboard/>} />
 
-          <Route path="/order/list" component={<OrderList/>} />
-          {/* <Route path="/contact" component={ContactPage} /> */}
+          <Route path="/order/list" element={<OrderList/>} />
+          <Route path="/orders/new" element={<NewOrder/>} />
         </Routes>
     </BrowserRouter>
   )
