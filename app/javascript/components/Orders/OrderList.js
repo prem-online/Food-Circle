@@ -14,6 +14,22 @@ const OrderList = () => {
   const token = useLogin()
   
   useEffect(()=>{
+    const callOrderListApi = async () => {
+      setLoading(true);
+      await sleep(1000); // Simulate delay
+      const url = `${BASE_URL}api/v1/orders?page=${page}&per=10`
+      axios.get(url, { headers: { token: token } })
+      .then(response => {
+        console.log(response)
+        console.log(page)
+          setOrders(response.data.data);
+          setLoading(false);
+        })
+      .catch((error) => {
+          console.log('error ' + error);
+        });
+    };
+  
     if (token != ''){
       callOrderListApi();
     }
@@ -23,18 +39,6 @@ const OrderList = () => {
     setPage(value);
   };
 
-  const callOrderListApi = async () => {
-    await sleep(1000); // Simulate delay
-    const url = `${BASE_URL}api/v1/orders`
-    axios.get(url, { headers: { token: token } })
-    .then(response => {
-        setOrders(response.data.data);
-        setLoading(false);
-      })
-    .catch((error) => {
-        console.log('error ' + error);
-      });
-  };
 
   const orderItemPresenter = (order, first_arr_or_count) => {
       const order_items_array = order.attributes.order_items.map(oi=> oi.name)
@@ -45,6 +49,7 @@ const OrderList = () => {
           return order_items_array.length;
       }
   }
+ 
   return (
     <>
       <BasicDashboard />

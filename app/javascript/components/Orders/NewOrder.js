@@ -18,7 +18,6 @@ const NewOrder = () => {
   const [loading, setLoading] = useState(true);
   const [productQuantity, setProductQuantity] = useState({})
   const token = useLogin();
-  const [data, setData] = useState({});
 
   useEffect(() =>{
     if (token != ''){
@@ -76,14 +75,23 @@ const NewOrder = () => {
         "order_items_attributes": productData
       }
     };
-    const {resp} = await axios.post(`${BASE_URL}/api/v2/orders`, data, {
+    try {
+    const {response} = await axios.post(`${BASE_URL}/api/v2/orders`, data, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json',
         'token': token
       }
+    })
+    alert('success')
+    console.log(response);
+    await sleep(9000); // Wait for 3 seconds
+
+    console.log(response.data); // Assuming you want to log response data
+    await sleep(9000); // Wait for 9 seconds
+    }catch (error) {
+      alert('failure')
+      console.error('Error:', error);
     }
-  )
-  
 
   }
 
