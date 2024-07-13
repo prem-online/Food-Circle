@@ -38,3 +38,25 @@ export const readTime = (time) => {
   const humanReadable = date.toLocaleString('en-IN', options);
   return humanReadable
 }
+
+export const extractInteger = (str)=>{
+  const match = str.match(/\d+/);
+  if (match) {
+    return parseInt(match[0]);
+  }
+  return null; // Return null if no number is found
+}
+
+export const transformData = (input)=> {
+  const result = [];
+
+  for (const key in input) {
+    if (input.hasOwnProperty(key)) {
+      const product_id = parseInt(key.match(/\d+/)[0]);
+      const quantity = input[key];
+      result.push({ product_id, quantity });
+    }
+  }
+
+  return result;
+}

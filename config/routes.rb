@@ -26,6 +26,9 @@ Rails.application.routes.draw do
       end
       resources :products, only: [:index, :show]
     end
+    namespace :v2 do
+      post 'orders', to: 'orders#create'
+    end
   end
 
   namespace :business2 do

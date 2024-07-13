@@ -1,18 +1,24 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios';
-import BasicDashboard from '../dashboard/BasicDashboard';
 import {Container, Stack, Button,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, 
   TextField, Fab} from '@mui/material';
-import { useLogin } from '../../helpers/useLogin';
-import { BASE_URL } from '../../constants';
-import { sleep } from '../../helpers/common';
+
+import axios from 'axios';
+
+import BasicDashboard from '../dashboard/BasicDashboard';
 import OrderSkeleton from './OrderSkeleton';
-import { ContactSupportOutlined } from '@mui/icons-material';
+
+import { useLogin } from '../../helpers/useLogin';
+
+import { BASE_URL } from '../../constants';
+
+import { sleep, extractInteger, transformData } from '../../helpers/common';
+
 const NewOrder = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productQuantity, setProductQuantity] = useState({})
   const token = useLogin();
+  const [data, setData] = useState({});
 
   useEffect(() =>{
     if (token != ''){
@@ -37,7 +43,6 @@ const NewOrder = () => {
   }
 
   const showQuantity = (id, caller="addQuantity") => {
-    console.log('showQuantity');
     if(caller==="row"){
       const ids = Object.keys(productQuantity).map(k=> `${extractInteger(k)}`)
       if(!ids.includes(`${id}`)){
@@ -62,18 +67,31 @@ const NewOrder = () => {
     }
     showQuantity(id,"addQuantity")
   }
-
-  const extractInteger = (str)=>{
-    const match = str.match(/\d+/);
-    if (match) {
-      return parseInt(match[0]);
+ 
+  const handleSubmit = async ()=>{
+    const productData = transformData(productQuantity)
+    const data = {
+      "order": {
+        "total": 100,
+        "order_items_attributes": productData
+      }
+    };
+    const {resp} = await axios.post(`${BASE_URL}/api/v2/orders`, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'token': token
+      }
     }
-    return null; // Return null if no number is found
+  )
+  
+
   }
+
+
   return (
     <>
       <BasicDashboard />
-      <Container>
+      <Container component="form" onSubmit={ handleSubmit}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -132,7 +150,7 @@ const NewOrder = () => {
         </TableContainer>
         <Stack direction="row" >
           <Stack spacing={2} sx={{ mx: "auto", pb: 1, pt: 1 }} >
-            <Button variant='contained' href='/order/list' >
+            <Button type="submit" variant='contained'>
               Confirm
             </Button>
             <Button variant='outlined' href='/order/list'>
