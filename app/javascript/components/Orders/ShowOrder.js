@@ -17,6 +17,7 @@ const ShowOrder = () => {
   const [order, setOrder] = useState('');
   const [loading, setLoading] = useState(true);
   const tableRef = useRef(null);
+  const [action, setAction] = useState('show');
 
   const token = useLogin()
   useEffect(()=>{
@@ -39,7 +40,7 @@ const ShowOrder = () => {
       callOrderShowApi();
     }
   },[token])
-
+  console.log(action)
   return (
     <>
       <BasicDashboard/>
@@ -57,12 +58,13 @@ const ShowOrder = () => {
                 <p>Order Date: {readTime(order.attributes.created_at)}</p>
               </Grid>
             </Grid>
-            <p>Order Items:</p>
+            <strong sx={{mb:2}}>Order Items</strong>
             <TableContainer component={Paper}
+            sx={{mb:2}}
             >
               <Table ref={tableRef}>
                 <TableHead>
-                  <TableRow>
+                  <TableRow key="GURU">
                     <TableCell>Name</TableCell>
                     <TableCell>Quantity</TableCell>
                     <TableCell>Unit Price</TableCell>
@@ -70,24 +72,35 @@ const ShowOrder = () => {
                   </TableRow>
                 </TableHead>
                   <TableBody>
-                    {order.attributes.order_items.map(item => (
-                      <TableRow key={item.id}>
+                    {order.attributes.order_items.map((item,index) => (
+                      <TableRow key={`${item.id}+${index}`}>
                         <TableCell>{item.name}</TableCell>
                         <TableCell>{item.quantity}</TableCell>
                         <TableCell>{item.unit_price}</TableCell>
-                        <TableCell>{item.subtotal}</TableCell>
+                        <TableCell>{item.sub_total}</TableCell>
                       </TableRow>
                     ))}
+                     <TableRow key={`total-${order.id}`}>
+                        <TableCell>
+                          <strong>Total</strong>
+                        </TableCell>
+                        <TableCell>{}</TableCell>
+                        <TableCell>{}</TableCell>
+                        <TableCell>
+                          <strong>
+                            {order.attributes.total}
+                          </strong>
+                        </TableCell>
+                      </TableRow>
                   </TableBody>
                 </Table>
             </TableContainer>
             
-            <strong>Total: {order.attributes.total}</strong>
             <Stack direction="row" spacing={2}>
               <Button variant='contained'>
-                Edit
+                {action === 'show' ? 'Edit' : 'Save'}
               </Button>
-              <Button variant='contained' href={`/orders/${id}/edit`}>
+              <Button variant='contained' href="/order/list">
                 Back
               </Button>
             </Stack>
