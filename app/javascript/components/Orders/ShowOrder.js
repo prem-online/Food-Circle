@@ -1,6 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { useParams } from 'react-router-dom';
-import { Container } from '@mui/material';
+import { Container, Stack, Button, Box, Grid,
+  TableContainer, Table, TableHead, TableRow, TableCell, TableBody,
+  Paper
+ } from '@mui/material';
 
 import BasicDashboard from '../dashboard/BasicDashboard';
 
@@ -13,6 +16,7 @@ const ShowOrder = () => {
   const { id } = useParams();
   const [order, setOrder] = useState('');
   const [loading, setLoading] = useState(true);
+  const tableRef = useRef(null);
 
   const token = useLogin()
   useEffect(()=>{
@@ -40,21 +44,54 @@ const ShowOrder = () => {
     <>
       <BasicDashboard/>
       <Container>
-        <h1>Order ID: {id}</h1>
+        <h1>Order Details</h1>
         {loading ? (
           <p>Loading...</p>
         ):(
-          <>
-            <p>Order Number: {order.attributes.order_number}</p>
-            <p>Total: {order.attributes.total}</p>
-            <p>Order Date: {readTime(order.attributes.created_at)}</p>
+          <Box>
+            <Grid container rowSpacing={2} columnSpacing={{xs:1, sm: 2, md: 3}}>
+              <Grid item xs={6}>
+                <p>Order Number: {order.attributes.order_number}</p>
+              </Grid>
+              <Grid item xs={6}>
+                <p>Order Date: {readTime(order.attributes.created_at)}</p>
+              </Grid>
+            </Grid>
             <p>Order Items:</p>
-            <ul>
-              {order.attributes.order_items.map((item, index) => (
-                <li key={index}>{item.name}</li>
-              ))}
-            </ul>
-          </>
+            <TableContainer component={Paper}
+            >
+              <Table ref={tableRef}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell>Unit Price</TableCell>
+                    <TableCell>Subtotal</TableCell>
+                  </TableRow>
+                </TableHead>
+                  <TableBody>
+                    {order.attributes.order_items.map(item => (
+                      <TableRow key={item.id}>
+                        <TableCell>{item.name}</TableCell>
+                        <TableCell>{item.quantity}</TableCell>
+                        <TableCell>{item.unit_price}</TableCell>
+                        <TableCell>{item.subtotal}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+            </TableContainer>
+            
+            <strong>Total: {order.attributes.total}</strong>
+            <Stack direction="row" spacing={2}>
+              <Button variant='contained'>
+                Edit
+              </Button>
+              <Button variant='contained' href={`/orders/${id}/edit`}>
+                Back
+              </Button>
+            </Stack>
+          </Box>
         )}
       </Container>
     </>
