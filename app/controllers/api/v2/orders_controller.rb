@@ -1,6 +1,8 @@
 module Api
   module V2
     class OrdersController < ApplicationController
+      before_action :set_order
+
       def create
         @order = Order.new(order_params)
         @order.account_id = @current_user.id
@@ -10,6 +12,10 @@ module Api
         else
           render json: @order.errors, status: :unprocessable_entity
         end
+      end
+
+      def show
+        render json: OrderSerializer.new(@order), status: :ok
       end
 
       private
@@ -28,6 +34,13 @@ module Api
 
       def add_order_items_to_order
         order_items_params[:order_items].each { |item| @order.order_items.new(item) }
+      end
+
+      def set_order
+        @order = Order.find_by_id(params[:id])
+        return if @order
+
+        render json: { message: 'Order not found' }, status: :not_found
       end
     end
   end

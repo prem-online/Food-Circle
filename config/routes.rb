@@ -4,12 +4,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "business/products#index"
-  root "root#index"
-  
-  get '*path', to: 'root#index', constraints: ->(request) do
+  root 'root#index'
+
+  get '*path', to: 'root#index', constraints: lambda { |request|
     allowed_paths_regex = /\b(api|business|admin)\b/
     !request.xhr? && request.format.html? && !allowed_paths_regex.match?(request.path)
-  end
+  }
 
   # API ROUTES
   namespace :api do
@@ -24,10 +24,11 @@ Rails.application.routes.draw do
           post 'refresh', to: 'logins#refresh'
         end
       end
-      resources :products, only: [:index, :show]
+      resources :products, only: %i[index show]
     end
     namespace :v2 do
       post 'orders', to: 'orders#create'
+      get 'orders/:id', to: 'orders#show'
     end
   end
 
