@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import { useParams } from 'react-router-dom';
 import { Container, Stack, Button, Box, Grid,
   TableContainer, Table, TableHead, TableRow, TableCell, TableBody,
-  Paper
+  Paper, TextField, Typography
  } from '@mui/material';
 
 import BasicDashboard from '../dashboard/BasicDashboard';
@@ -17,7 +17,6 @@ const ShowOrder = () => {
   const [order, setOrder] = useState('');
   const [loading, setLoading] = useState(true);
   const tableRef = useRef(null);
-  const [action, setAction] = useState('show');
 
   const token = useLogin()
   useEffect(()=>{
@@ -40,7 +39,7 @@ const ShowOrder = () => {
       callOrderShowApi();
     }
   },[token])
-  console.log(action)
+
   return (
     <>
       <BasicDashboard/>
@@ -75,7 +74,9 @@ const ShowOrder = () => {
                     {order.attributes.order_items.map((item,index) => (
                       <TableRow key={`${item.id}+${index}`}>
                         <TableCell>{item.name}</TableCell>
-                        <TableCell>{item.quantity}</TableCell>
+                        <TableCell>
+                          {item.quantity}
+                        </TableCell>
                         <TableCell>{item.unit_price}</TableCell>
                         <TableCell>{item.sub_total}</TableCell>
                       </TableRow>
@@ -97,9 +98,6 @@ const ShowOrder = () => {
             </TableContainer>
             
             <Stack direction="row" spacing={2}>
-              <Button variant='contained'>
-                {action === 'show' ? 'Edit' : 'Save'}
-              </Button>
               <Button variant='contained' href="/order/list">
                 Back
               </Button>
