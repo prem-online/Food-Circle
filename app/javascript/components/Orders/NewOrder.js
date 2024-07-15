@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Container, Stack, Button,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, 
-  TextField, Fab} from '@mui/material';
+  TextField, Fab, Snackbar, Alert, IconButton} from '@mui/material';
 
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ import OrderSkeleton from './OrderSkeleton';
 
 import { useLogin } from '../../helpers/useLogin';
 
-import { BASE_URL } from '../../constants';
+import { BASE_URL, MODULE_SUCCESSFULL_CREATED } from '../../constants';
 
 import { sleep, extractInteger, transformData } from '../../helpers/common';
 
@@ -18,8 +18,9 @@ const NewOrder = () => {
   const [loading, setLoading] = useState(true);
   const [productQuantity, setProductQuantity] = useState({})
   const token = useLogin();
-  const [data, setData] = useState({});
-
+  const [open, setOpen] = useState(false);
+  const [responseMessage, setResponseMessage] = useState('');
+  const [severity, setSeverity] = useState('success');
   useEffect(() =>{
     if (token != ''){
       fetchMenuItems();
@@ -68,7 +69,8 @@ const NewOrder = () => {
     showQuantity(id,"addQuantity")
   }
  
-  const handleSubmit = async ()=>{
+  const handleSubmit = async (event)=>{
+    event.preventDefault();
     const productData = transformData(productQuantity)
     const data = {
       "order": {
@@ -76,21 +78,50 @@ const NewOrder = () => {
         "order_items_attributes": productData
       }
     };
-    const {resp} = await axios.post(`${BASE_URL}/api/v2/orders`, data, {
+    try {
+    const response = await axios.post(`${BASE_URL}/api/v2/orders`, data, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json',
         'token': token
       }
+    })
+    setResponseMessage(`Order ${MODULE_SUCCESSFULL_CREATED}`);
+    setOpen(true);
+    setSeverity('success');
+    await sleep(3000);
+    window.location.href = '/order/list';
+
+    }catch (error) {
+      setResponseMessage(error.response.data[0]);
+      setOpen(true);
+      setSeverity('error');
+      console.error('Error:', error);
     }
-  )
-  
 
   }
 
-
+  const handleClose = () =>{
+    setOpen(false);
+  }
   return (
     <>
       <BasicDashboard />
+      <Snackbar 
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            open={open}
+            autoHideDuration={3000}
+            key={'top' + 'center'}
+            onClose={handleClose}
+        >
+            <Alert
+                onClose={handleClose}
+                severity={severity}
+                variant="filled"
+                sx={{ width: '100%' }}
+            >
+             {responseMessage}
+            </Alert>
+        </Snackbar>
       <Container component="form" onSubmit={ handleSubmit}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">

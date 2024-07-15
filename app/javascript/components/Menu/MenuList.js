@@ -1,0 +1,104 @@
+import { Container } from '@mui/material'
+import { Table, Paper, TableHead, TableRow, TableCell, TableBody,TableContainer,
+  Stack, Button, Pagination, IconButton
+ } from '@mui/material'
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import BasicDashboard from '../dashboard/BasicDashboard'
+import MenuSkeleton from './MenuSkeleton'
+
+import { useLogin } from '../../helpers/useLogin';
+import { sleep } from '../../helpers/common';
+import { BASE_URL } from '../../constants';
+
+const MenuList = () => {
+  const [page, setPage] = useState(1);
+  const tableRef = useRef(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const token = useLogin()
+
+  useEffect(()=>{
+    const callProductListApi = async () => {
+      setLoading(true);
+      await sleep(1000); // Simulate delay
+      const url = `${BASE_URL}api/v1/products?page=${page}&per=10`
+      axios.get(url, { headers: { token: token } })
+      .then(response => {
+        console.log(response)
+        console.log(page)
+          setProducts(response.data.data);
+          setLoading(false);
+        })
+      .catch((error) => {
+          console.log('error ' + error);
+        });
+    };
+  
+    if (token != ''){
+      callProductListApi();
+    }
+  },[token, page])
+  
+  const handlePagination = (e, value) => {
+    setPage(value);
+  };
+
+  return (
+    <>
+      <BasicDashboard></BasicDashboard>
+      <Container>
+        <Stack direction='row' mb={2}>
+          <Button variant='contained' href='/menus/new'>
+            New Menu
+          </Button>
+        </Stack>
+        <TableContainer component={Paper}
+        >
+          <Table ref={tableRef}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {loading ? (
+                <>
+                  <MenuSkeleton/>
+                  <MenuSkeleton/>
+                  <MenuSkeleton/>
+                </>
+              ) : (
+                products.map((product) => (
+                  <TableRow key={product.id}>
+                    <TableCell>{product.attributes.name}</TableCell>
+                    <TableCell>{product.attributes.price}</TableCell>
+                    <TableCell>
+                      <IconButton size="small" aria-label="edit" >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton aria-label="delete" size="small">
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Stack  
+          >
+          <Pagination sx={{ mx: "auto", pb: 1, pt: 1 }} count={10} color="primary" onChange={handlePagination} />
+        </Stack>
+      </Container>
+    </>
+  )
+}
+
+export default MenuList

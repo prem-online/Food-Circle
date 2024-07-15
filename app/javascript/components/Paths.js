@@ -14,6 +14,8 @@ import BasicDashboard from './dashboard/BasicDashboard';
 import Logout from './authentication/Logout';
 import OrderList from './Orders/OrderList';
 import NewOrder from './Orders/NewOrder';
+import MenuList from './Menu/MenuList';
+import ShowOrder from './Orders/ShowOrder';
 const Paths = () => {
   return (
     <BrowserRouter>
@@ -31,6 +33,11 @@ const Paths = () => {
 
           <Route path="/order/list" element={<OrderList/>} />
           <Route path="/orders/new" element={<NewOrder/>} />
+          <Route path="/orders/:id" element={<ShowOrder/>} />
+
+          <Route path="/menu/list" element={<MenuList/>} />
+
+
         </Routes>
     </BrowserRouter>
   )

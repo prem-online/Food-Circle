@@ -22,7 +22,7 @@ const BasicDashboard = () => {
           <Button variant="primary" href="/order/list">
             Orders
           </Button>
-          <Button variant="primary" href="/orders/new">
+          <Button variant="primary" href="/menu/list">
             Menu
           </Button>
           <Button variant="primary" href="/contact">
