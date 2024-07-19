@@ -1,7 +1,7 @@
 module Api
   module V2
     class OrdersController < ApplicationController
-      before_action :set_order
+      before_action :set_order, only: %i[edit update show destory]
 
       def create
         @order = Order.new(order_params)

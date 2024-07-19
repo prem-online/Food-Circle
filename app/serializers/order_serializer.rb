@@ -10,7 +10,8 @@ class OrderSerializer
           name: item.product.name,
           quantity: item.quantity,
           unit_price: item.product.price,
-          sub_total: item.product.price.to_f * item.quantity.to_f
+          sub_total: item.product.price.to_f * item.quantity.to_f,
+          product_id: item.product.id
         }
       )
     end

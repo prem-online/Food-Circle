@@ -21,6 +21,7 @@ const NewOrder = () => {
   const [open, setOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
   const [severity, setSeverity] = useState('success');
+  
   useEffect(() =>{
     if (token != ''){
       fetchMenuItems();
