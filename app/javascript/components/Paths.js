@@ -17,7 +17,7 @@ import NewOrder from './Orders/NewOrder';
 import MenuList from './Menu/MenuList';
 import ShowOrder from './Orders/ShowOrder';
 import EditOrder from './Orders/EditOrder';
-
+import NewMenu from './Menu/NewMenu';
 const Paths = () => {
   return (
     <BrowserRouter>
@@ -39,7 +39,7 @@ const Paths = () => {
           <Route path="/orders/:id/edit" element={<EditOrder/>} />
 
           <Route path="/menu/list" element={<MenuList/>} />
-
+          <Route path="menus/new" element={<NewMenu/>} />
         </Routes>
     </BrowserRouter>
   )

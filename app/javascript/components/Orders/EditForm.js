@@ -8,7 +8,8 @@ import { useLogin } from '../../helpers/useLogin';
 import { sleep, extractInteger, transformData } from '../../helpers/common';
 import OrderSkeleton from './OrderSkeleton';
 import { BASE_URL } from '../../constants';
-const OrderForm = ({handleSubmit, data}) => {
+
+const EditForm = ({data, id}) => {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productQuantity, setProductQuantity] = useState({})
@@ -42,6 +43,30 @@ const OrderForm = ({handleSubmit, data}) => {
 
   useEffect(()=>{
   },[productQuantity])
+
+  const updateOrder = async (data) =>{
+    const url = `${BASE_URL}api/v2/orders/${id}`;
+    axios.patch(url,data,{ headers: { token: token } })
+    .then(response => {
+        setLoading(false);
+      })
+    .catch((error) => {
+        console.log('error ' + error);
+      });
+  };
+
+  const handleSubmit = (event) =>{
+    event.preventDefault();
+    const productData = transformData(productQuantity)
+    const data = {
+      "order": {
+        "total": 100,
+        "order_items_attributes": productData
+      }
+    };
+    console.log(data);
+    updateOrder(data);
+  }
 
   const fetchMenuItems = async() => {
     await sleep(1000); // Simulate delay
@@ -80,6 +105,7 @@ const OrderForm = ({handleSubmit, data}) => {
     showQuantity(id,"addQuantity")
   }
  
+  
   return (
     <Container component="form" onSubmit={handleSubmit}>
     <TableContainer component={Paper}>
@@ -154,4 +180,4 @@ const OrderForm = ({handleSubmit, data}) => {
   )
 }
 
-export default OrderForm
+export default EditForm

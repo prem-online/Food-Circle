@@ -18,14 +18,16 @@ module Api
         render json: OrderSerializer.new(@order), status: :ok
       end
 
+      def update
+        return unless @order.update(order_params)
+
+        render json: OrderSerializer.new(@order, meta: { message: 'Order updated successfully' }), status: :ok
+      end
+
       private
 
       def order_params
         params.require(:order).permit(:total, order_items_attributes: %i[product_id quantity])
-      end
-
-      def order_params
-        params.require(:order).permit(order_items_attributes: %i[product_id quantity])
       end
 
       def order_items_params

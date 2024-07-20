@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     namespace :v2 do
       post 'orders', to: 'orders#create'
       get 'orders/:id', to: 'orders#show'
+      patch 'orders/:id', to: 'orders#update'
     end
   end
 
