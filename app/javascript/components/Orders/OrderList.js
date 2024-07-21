@@ -58,6 +58,16 @@ const OrderList = () => {
       }
   }
  
+  const handleDelete = async (order) => {
+    const url = `${BASE_URL}api/v2/orders/${order.id}`;
+    await axios.delete(url, { headers: { token: token } })
+     .then(response => {
+        setOrders(orders.filter(o=>o.id!== order.id))
+      })
+     .catch((error) => {
+          console.log('error'+ error);
+        });
+  }
   return (
     <>
       <BasicDashboard />
@@ -110,12 +120,17 @@ const OrderList = () => {
                     <TableCell>{readTime(order.attributes.created_at)}</TableCell>
                     <TableCell>
                       <Stack direction="row" spacing={2}>
-                        <Button variant="contained" href={`/orders/${order.id}/edit`} size="small" aria-label="edit" startIcon={<EditIcon />}>
-                          Edit
-                        </Button>
-                        <Button variant="outlined" size="small" aria-label="edit" startIcon={<DeleteIcon />}>
-                          Delete
-                        </Button>
+                      <a href={`/orders/${order.id}/edit`} target="_self">
+                        <IconButton size="small" aria-label="edit" >
+                          <EditIcon fontSize="small" />
+                        </IconButton>
+                      </a>
+                      <IconButton 
+                        aria-label="delete" size="small"
+                        onClick={()=>handleDelete(order)}
+                        >
+                        <DeleteIcon fontSize="small"/>
+                      </IconButton>
                       </Stack>
                     </TableCell>
                   </TableRow>

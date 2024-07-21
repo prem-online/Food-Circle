@@ -3,6 +3,7 @@ import { Box, Button, Stack, TextField, Typography, Snackbar, Alert } from '@mui
 import validator from 'validator';
 import axios from 'axios';
 import { BASE_URL, MODULE_SUCCESSFULL_CREATED } from '../../constants';
+import Navbar from '../Main/Navbar';
 function Signup() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -85,78 +86,81 @@ function Signup() {
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        mx: 'auto',
-        height: 'auto',
-        width: '40vh',
-        mt: 10,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        '& .MuiTextField-root': {
-          m: 1,
-          width: '35ch',
-        }
-      }}
-      onSubmit={handleSubmit}
-    >
-  
-      <Stack spacing={2}>
-        <Snackbar 
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            open={open}
-            autoHideDuration={3000}
-            key={'top' + 'center'}
-            onClose={handleClose}
-        >
-            <Alert
-                onClose={handleClose}
-                severity={severity}
-                variant="filled"
-                sx={{ width: '100%' }}
-            >
-             {responseMessage}
-            </Alert>
-        </Snackbar>
-        
-        <TextField
-          id="email-auth"
-          label="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          error={emailError}
-          helperText={emailHelperText}
-          required
-        />
-        <TextField
-          id="password-auth"
-          label="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          error={passwordError}
-          helperText={passwordHelperText || 'A password needs 8+ characters, one lowercase, one uppercase, one number, and one symbol.'}
-          required
-        />
-        <TextField
-          id="password-confirmation-auth"
-          label="Password Confirmation"
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          error={confirmPasswordError}
-          helperText={confirmPasswordHelperText}
-          required
-        />
-        <Typography>
-          Already have an account? <Button href='/login'>Login</Button>
-        </Typography>
-        <Button type="submit" variant='contained'>Signup</Button>
-      </Stack>
-    </Box>
+    <>
+    <Navbar></Navbar>
+      <Box
+        component="form"
+        sx={{
+          mx: 'auto',
+          height: 'auto',
+          width: '40vh',
+          mt: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          '& .MuiTextField-root': {
+            m: 1,
+            width: '35ch',
+          }
+        }}
+        onSubmit={handleSubmit}
+      >
+    
+        <Stack spacing={2}>
+          <Snackbar 
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              open={open}
+              autoHideDuration={3000}
+              key={'top' + 'center'}
+              onClose={handleClose}
+          >
+              <Alert
+                  onClose={handleClose}
+                  severity={severity}
+                  variant="filled"
+                  sx={{ width: '100%' }}
+              >
+              {responseMessage}
+              </Alert>
+          </Snackbar>
+          
+          <TextField
+            id="email-auth"
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            error={emailError}
+            helperText={emailHelperText}
+            required
+          />
+          <TextField
+            id="password-auth"
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            error={passwordError}
+            helperText={passwordHelperText || 'A password needs 8+ characters, one lowercase, one uppercase, one number, and one symbol.'}
+            required
+          />
+          <TextField
+            id="password-confirmation-auth"
+            label="Password Confirmation"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            error={confirmPasswordError}
+            helperText={confirmPasswordHelperText}
+            required
+          />
+          <Typography>
+            Already have an account? <Button href='/login'>Login</Button>
+          </Typography>
+          <Button type="submit" variant='contained'>Signup</Button>
+        </Stack>
+      </Box>
+    </>
   );
 }
 
