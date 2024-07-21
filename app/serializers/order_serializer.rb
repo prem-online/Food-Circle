@@ -1,6 +1,8 @@
 class OrderSerializer
   include JSONAPI::Serializer
   attributes :order_number, :total, :created_at, :updated_at
+  has_many :order_items
+
   attribute :order_items do |order|
     order_items = order.order_items.includes(:product)
     order_item_collection = order_items.inject([]) do |acc, item|
