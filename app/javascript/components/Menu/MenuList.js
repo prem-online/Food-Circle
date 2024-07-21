@@ -47,6 +47,17 @@ const MenuList = () => {
     setPage(value);
   };
 
+  const handleDelete = async (product) => {
+    const url = `${BASE_URL}api/v2/products/${product.id}`;
+    await axios.delete(url, { headers: { token: token } })
+     .then(response => {
+        setProducts(products.filter(p=>p.id!== product.id))
+      })
+     .catch((error) => {
+          console.log('error'+ error);
+        });
+  }
+
   return (
     <>
       <BasicDashboard></BasicDashboard>
@@ -82,8 +93,11 @@ const MenuList = () => {
                       <IconButton size="small" aria-label="edit" >
                         <EditIcon fontSize="small" />
                       </IconButton>
-                      <IconButton aria-label="delete" size="small">
-                        <DeleteIcon fontSize="small" />
+                      <IconButton 
+                        aria-label="delete" size="small"
+                        onClick={()=>handleDelete(product)}
+                        >
+                        <DeleteIcon fontSize="small"/>
                       </IconButton>
                     </TableCell>
                   </TableRow>

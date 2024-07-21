@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Navbar from '../Main/Navbar';
 const Logout = () => {
   const navigate = useNavigate();
   const [counter, setCounter] = useState(5); // Initial countdown time in seconds
@@ -26,6 +26,7 @@ const Logout = () => {
 
   return (
     <div>
+      <Navbar></Navbar>
       Logged out successfully.
       Redirecting to the login page in {counter} seconds.
     </div>

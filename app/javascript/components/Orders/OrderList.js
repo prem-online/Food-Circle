@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Stack, Pagination, Container, Button,
   IconButton,
-  Typography
  } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+
 import BasicDashboard from '../dashboard/BasicDashboard';
 import OrderSkeleton from './OrderSkeleton';
 
@@ -14,6 +14,7 @@ import { useLogin } from '../../helpers/useLogin';
 
 import { BASE_URL } from '../../constants';
 const OrderList = () => {
+
   const [page, setPage] = useState(1);
   const tableRef = useRef(null);
   const [orders, setOrders] = useState([]);
@@ -57,6 +58,16 @@ const OrderList = () => {
       }
   }
  
+  const handleDelete = async (order) => {
+    const url = `${BASE_URL}api/v2/orders/${order.id}`;
+    await axios.delete(url, { headers: { token: token } })
+     .then(response => {
+        setOrders(orders.filter(o=>o.id!== order.id))
+      })
+     .catch((error) => {
+          console.log('error'+ error);
+        });
+  }
   return (
     <>
       <BasicDashboard />
@@ -108,12 +119,19 @@ const OrderList = () => {
                     <TableCell>{order.attributes.total}</TableCell>
                     <TableCell>{readTime(order.attributes.created_at)}</TableCell>
                     <TableCell>
-                      <IconButton size="small" aria-label="edit" >
-                        <EditIcon fontSize="small" />
+                      <Stack direction="row" spacing={2}>
+                      <a href={`/orders/${order.id}/edit`} target="_self">
+                        <IconButton size="small" aria-label="edit" >
+                          <EditIcon fontSize="small" />
+                        </IconButton>
+                      </a>
+                      <IconButton 
+                        aria-label="delete" size="small"
+                        onClick={()=>handleDelete(order)}
+                        >
+                        <DeleteIcon fontSize="small"/>
                       </IconButton>
-                      <IconButton aria-label="delete" size="small">
-                        <DeleteIcon fontSize="small" />
-                      </IconButton>
+                      </Stack>
                     </TableCell>
                   </TableRow>
                 ))

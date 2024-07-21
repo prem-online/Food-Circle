@@ -6,10 +6,12 @@ class OrderSerializer
     order_item_collection = order_items.inject([]) do |acc, item|
       acc.push(
         {
+          id: item.id,
           name: item.product.name,
           quantity: item.quantity,
           unit_price: item.product.price,
-          sub_total: item.product.price.to_f * item.quantity.to_f
+          sub_total: item.product.price.to_f * item.quantity.to_f,
+          product_id: item.product.id
         }
       )
     end

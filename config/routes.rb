@@ -27,8 +27,15 @@ Rails.application.routes.draw do
       resources :products, only: %i[index show]
     end
     namespace :v2 do
-      post 'orders', to: 'orders#create'
-      get 'orders/:id', to: 'orders#show'
+      post                  'orders',                         to: 'orders#create'
+      get                   'orders/:id',                     to: 'orders#show'
+      patch                 'orders/:id',                     to: 'orders#update'
+      delete                'orders/:id',                     to: 'orders#destroy'
+
+      post                  'products',                       to: 'products#create'
+      get                   'products/:id',                   to: 'products#show'
+      patch                 'products/:id',                   to: 'products#update'
+      delete                'products/:id',                   to: 'products#destroy'
     end
   end
 
