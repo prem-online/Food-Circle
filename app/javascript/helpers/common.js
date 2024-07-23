@@ -64,3 +64,7 @@ export const transformData = (input)=> {
 export const nextMultipleOfTen = (num) => {
   return Math.ceil(num / 10) * 10;
 }
+
+export const handleReload = () => {
+  window.location.reload();
+};

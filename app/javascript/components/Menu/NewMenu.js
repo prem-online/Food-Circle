@@ -6,7 +6,7 @@ import Form from './Form'
 import PopUp from './PopUp'
 import { useLogin } from '../../helpers/useLogin'
 import { BASE_URL } from '../../constants'
-import { sleep } from '../../helpers/common'
+import { sleep, handleReload } from '../../helpers/common'
 const NewMenu = () => {
   const [name,setName]= useState()
   const [price, setPrice]= useState()
@@ -31,9 +31,11 @@ const NewMenu = () => {
       }
     }
     await axios.post(url,data,{ headers: { token: token } })
-    .then(response => {
+    .then(async response => {
       setOpen(true)
       setPopUpMessage('Product added successfully')
+      await sleep(1000);
+      handleReload()
     })
     .catch((error) => {
         console.log('error ' + error);

@@ -33,9 +33,9 @@ const OrderList = () => {
         console.log(page)
           setOrders(response.data.data);
           let total = response.data.meta.total
-          let finalTotal = total > page+9 ? page+9 : total
-          finalTotal = nextMultipleOfTen(finalTotal)
-          finalTotal = finalTotal > total ? total : finalTotal
+          let finalTotal = total/10
+          finalTotal = Math.ceil(finalTotal)
+          finalTotal = finalTotal > 10 ? finalTotal : finalTotal
           setTotalPages(finalTotal)
           setLoading(false);
         })
