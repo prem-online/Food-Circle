@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import BasicDashboard from '../dashboard/BasicDashboard';
 import OrderSkeleton from './OrderSkeleton';
 
-import {sleep, readTime} from '../../helpers/common';
+import {sleep, readTime, nextMultipleOfTen} from '../../helpers/common';
 import { useLogin } from '../../helpers/useLogin';
 
 import { BASE_URL } from '../../constants';
@@ -20,6 +20,7 @@ const OrderList = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = useLogin()
+  const [totalPages, setTotalPages] = useState(1);
   
   useEffect(()=>{
     const callOrderListApi = async () => {
@@ -31,6 +32,11 @@ const OrderList = () => {
         console.log(response)
         console.log(page)
           setOrders(response.data.data);
+          let total = response.data.meta.total
+          let finalTotal = total/10
+          finalTotal = Math.ceil(finalTotal)
+          finalTotal = finalTotal > 10 ? finalTotal : finalTotal
+          setTotalPages(finalTotal)
           setLoading(false);
         })
       .catch((error) => {
@@ -141,7 +147,7 @@ const OrderList = () => {
         </TableContainer>
         <Stack  
           >
-          <Pagination sx={{ mx: "auto", pb: 1, pt: 1 }} count={10} color="primary" onChange={handlePagination} />
+          <Pagination sx={{ mx: "auto", pb: 1, pt: 1 }} count={totalPages} color="primary" onChange={handlePagination} />
         </Stack>
       </Container>
     </>

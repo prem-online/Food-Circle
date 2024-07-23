@@ -21,6 +21,7 @@ module Api
         total_count = orders.count
         render json: OrderSerializer.new(
           orders.page(params[:page]).per(params[:per] || 50),
+          include: [:order_items], # Include order_items in the serialization
           meta: { total: total_count, current_page: params[:page] }
         ).serializable_hash.to_json, status: :ok
       end

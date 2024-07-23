@@ -19,6 +19,8 @@ const MenuList = () => {
   const tableRef = useRef(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
+
   const token = useLogin()
 
   useEffect(()=>{
@@ -30,6 +32,11 @@ const MenuList = () => {
       .then(response => {
         console.log(response)
         console.log(page)
+          let total = response.data.meta.total
+          let finalTotal = total/10
+          finalTotal = Math.ceil(finalTotal)
+          finalTotal = finalTotal > 10 ? finalTotal : finalTotal
+          setTotalPages(finalTotal)
           setProducts(response.data.data);
           setLoading(false);
         })
@@ -108,7 +115,7 @@ const MenuList = () => {
         </TableContainer>
         <Stack  
           >
-          <Pagination sx={{ mx: "auto", pb: 1, pt: 1 }} count={10} color="primary" onChange={handlePagination} />
+          <Pagination sx={{ mx: "auto", pb: 1, pt: 1 }} count={totalPages} color="primary" onChange={handlePagination} />
         </Stack>
       </Container>
     </>
