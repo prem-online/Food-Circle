@@ -33,7 +33,7 @@ module Api
       private
 
       def order_params
-        params.require(:order).permit(:total, order_items_attributes: %i[product_id quantity])
+        params.require(:order).permit(:total, order_items_attributes: %i[product_id quantity _destroy])
       end
 
       def order_items_params
