@@ -148,6 +148,7 @@ function Signup() {
             id="password-confirmation-auth"
             label="Password Confirmation"
             type="password"
+            fullWidth
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             error={confirmPasswordError}

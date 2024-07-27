@@ -3,7 +3,7 @@ module Api
     class ProductsController < ApplicationController
       before_action :validate_json_web_token
       def index
-        products = Product.all
+        products = Product.order(:name).all
         render json: ProductSerializer.new(
           products.page(params[:page] || 1).per(params[:per] || 50),
           meta: {
