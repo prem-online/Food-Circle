@@ -67,7 +67,7 @@ const ShowOrder = () => {
                     <TableCell>Name</TableCell>
                     <TableCell>Quantity</TableCell>
                     <TableCell>Unit Price</TableCell>
-                    <TableCell>Subtotal</TableCell>
+                    <TableCell>SubTotal</TableCell>
                   </TableRow>
                 </TableHead>
                   <TableBody>

@@ -4,7 +4,7 @@ import {
 } from '@mui/material'
 import React from 'react'
 
-const Form = ({handleSubmit,onNameChange,onPriceChange}) => {
+const Form = ({handleSubmit,onNameChange,onPriceChange,actionName}) => {
   return (
     <Container component="form"
       onSubmit={handleSubmit}
@@ -25,7 +25,7 @@ const Form = ({handleSubmit,onNameChange,onPriceChange}) => {
         <TextField id="outlined-price" label="Price" variant="outlined" 
          onChange={(onPriceChange)}/>
          <Stack direction="column" spacing={1}>
-          <Button type="submit" variant="contained">Create</Button>
+          <Button type="submit" variant="contained">{actionName}</Button>
           <Button href="/menu/list" variant="outlined">Back</Button>
         </Stack>
 

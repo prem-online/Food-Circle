@@ -1,7 +1,7 @@
 module Api
   module V2
     class OrdersController < ApplicationController
-      before_action :set_order, only: %i[edit update show destroy]
+      before_action :set_order, only: %i[edit update show destroy update_order_total]
 
       def create
         @order = Order.new(order_params)
@@ -24,6 +24,12 @@ module Api
         render json: OrderSerializer.new(@order, meta: { message: 'Order updated successfully' }), status: :ok
       end
 
+      def update_order_total
+        return unless @order.update_total
+
+        render json: OrderSerializer.new(@order, meta: { message: 'Order updated successfully' }), status: :ok
+      end
+
       def destroy
         return render json: { message: 'Order deleted successfully' }, status: :ok if @order.destroy
 
@@ -33,7 +39,7 @@ module Api
       private
 
       def order_params
-        params.require(:order).permit(:total, order_items_attributes: %i[product_id quantity])
+        params.require(:order).permit(:total, order_items_attributes: %i[product_id quantity _destroy])
       end
 
       def order_items_params

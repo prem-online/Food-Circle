@@ -1,7 +1,14 @@
 import React from "react";
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Stack, ButtonGroup, Button , IconButton} from "@mui/material";
 const BasicDashboard = () => {
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    // Perform additional logout operations if needed
+    window.location.href = '/logout';
+  }
   return (
     <Stack direction="row">
       <Stack direction="row">
@@ -31,14 +38,18 @@ const BasicDashboard = () => {
         </ButtonGroup>
 
         <Stack direction="row" spacing={2} sx={{ mx: "auto !important" }}>
-          <Button variant="outlined" href="/signup">
-            Settings
-          </Button>
-          <Button 
-            variant="contained"
-            href='/logout'
-            onClick={()=> localStorage.removeItem('token')}
-            >LogOut</Button>
+          <Stack>
+            <a href='/signup'>
+              <IconButton aria-label="logo">
+                <SettingsIcon />
+              </IconButton>
+            </a>
+          </Stack>
+          <IconButton
+            onClick={handleLogout}
+          >
+            <LogoutIcon />
+          </IconButton>
         </Stack>
       </Stack>
     </Stack>

@@ -97,9 +97,11 @@ const MenuList = () => {
                     <TableCell>{product.attributes.name}</TableCell>
                     <TableCell>{product.attributes.price}</TableCell>
                     <TableCell>
-                      <IconButton size="small" aria-label="edit" >
-                        <EditIcon fontSize="small" />
-                      </IconButton>
+                      <a href={`/menus/${product.id}/edit`}>
+                        <IconButton size="small" aria-label="edit" >
+                          <EditIcon fontSize="small" />
+                        </IconButton>
+                      </a>
                       <IconButton 
                         aria-label="delete" size="small"
                         onClick={()=>handleDelete(product)}

@@ -36,6 +36,9 @@ Rails.application.routes.draw do
       get                   'products/:id',                   to: 'products#show'
       patch                 'products/:id',                   to: 'products#update'
       delete                'products/:id',                   to: 'products#destroy'
+
+      get                   'order_items/:id',                     to: 'order_items#show'
+      patch                 'order_items/:id',                     to: 'order_items#update'
     end
   end
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { Container, TableContainer, Table, TableHead, TableRow,
   Stack, Button, TextField, Fab, Snackbar, Alert, IconButton,
   Paper, TableCell, TableRow, TableBody
@@ -13,6 +13,9 @@ const EditForm = ({data, id}) => {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productQuantity, setProductQuantity] = useState({})
+  const [orderItems, setOrderItems] = useState([]);
+  const [isExecuting, setIsExecuting] = useState(false);
+  const timeoutIdRef = useRef(null);
 
   const token = useLogin();
   useEffect(() =>{
@@ -25,13 +28,14 @@ const EditForm = ({data, id}) => {
         case 'order':
           const items = data.attributes.order_items.map(item => ({
             id: item.product_id,
-            quantity: item.quantity
+            quantity: item.quantity,
+            order_item_id: item.id
           }))
           const items_hash = items.reduce((acc, item) => {
             acc[`pd-${item.id}`] = item.quantity;
             return acc;
           }, {});
-          
+          setOrderItems(items)
           setProductQuantity(items_hash)
           break;
         default:
@@ -44,28 +48,8 @@ const EditForm = ({data, id}) => {
   useEffect(()=>{
   },[productQuantity])
 
-  const updateOrder = async (data) =>{
-    const url = `${BASE_URL}api/v2/orders/${id}`;
-    axios.patch(url,data,{ headers: { token: token } })
-    .then(response => {
-        setLoading(false);
-      })
-    .catch((error) => {
-        console.log('error ' + error);
-      });
-  };
-
-  const handleSubmit = (event) =>{
-    event.preventDefault();
-    const productData = transformData(productQuantity)
-    const data = {
-      "order": {
-        "total": 100,
-        "order_items_attributes": productData
-      }
-    };
-    console.log(data);
-    updateOrder(data);
+  const setOrderItemId = (product_id)=>{
+   return orderItems.filter(item => item['id'] == product_id)[0]['order_item_id']
   }
 
   const fetchMenuItems = async() => {
@@ -75,6 +59,24 @@ const EditForm = ({data, id}) => {
     .then(response => {
       setMenuItems(response.data.data);
         setLoading(false);
+      })
+    .catch((error) => {
+        console.log('error ' + error);
+      });
+  }
+  const updateMenuItem = async(product_id) => {
+    const order_item_id = setOrderItemId(product_id)
+    const quantity = productQuantity[`pd-${product_id}`]
+    const url = `${BASE_URL}/api/v2/order_items/${order_item_id}`
+    const data={
+      "order_item":{
+        "quantity": quantity,
+        "product_id": product_id
+      }
+    }
+    axios.patch(url, data,{ headers: { token: token } })
+    .then(response => {
+      console.log(response);
       })
     .catch((error) => {
         console.log('error ' + error);
@@ -103,11 +105,12 @@ const EditForm = ({data, id}) => {
       setProductQuantity(obj);
     }
     showQuantity(id,"addQuantity")
+    sleep(2000);
+    updateMenuItem(id)
   }
  
-  
   return (
-    <Container component="form" onSubmit={handleSubmit}>
+    <Container>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -167,9 +170,9 @@ const EditForm = ({data, id}) => {
     </TableContainer>
     <Stack direction="row" >
       <Stack spacing={2} sx={{ mx: "auto", pb: 1, pt: 1 }} >
-        <Button type="submit" variant='contained'>
-          Confirm
-        </Button>
+        {/* <Button type="submit" variant='contained'> */}
+          {/* Confirm */}
+        {/* </Button> */}
         <Button variant='outlined' href='/order/list'>
           Go Back
         </Button>
