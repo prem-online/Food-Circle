@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { Container, TableContainer, Table, TableHead, TableRow,
   Stack, Button, TextField, Fab, Snackbar, Alert, IconButton,
   Paper, TableCell, TableRow, TableBody
@@ -14,6 +14,9 @@ const EditForm = ({data, id}) => {
   const [loading, setLoading] = useState(true);
   const [productQuantity, setProductQuantity] = useState({})
   const [orderItems, setOrderItems] = useState([]);
+  const [isExecuting, setIsExecuting] = useState(false);
+  const timeoutIdRef = useRef(null);
+
   const token = useLogin();
   useEffect(() =>{
     if (token != ''){
@@ -62,7 +65,6 @@ const EditForm = ({data, id}) => {
       });
   }
   const updateMenuItem = async(product_id) => {
-    await sleep(2000);
     const order_item_id = setOrderItemId(product_id)
     const quantity = productQuantity[`pd-${product_id}`]
     const url = `${BASE_URL}/api/v2/order_items/${order_item_id}`
@@ -102,12 +104,13 @@ const EditForm = ({data, id}) => {
       obj[`pd-${id}`] = newQuantity;
       setProductQuantity(obj);
     }
-    updateMenuItem(id)
     showQuantity(id,"addQuantity")
+    sleep(2000);
+    updateMenuItem(id)
   }
  
   return (
-    <Container component="form" onSubmit={handleSubmit}>
+    <Container>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

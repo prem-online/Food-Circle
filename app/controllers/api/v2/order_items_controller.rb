@@ -8,7 +8,7 @@ module Api
       end
 
       def update
-        return unless @order_item.update(order_items_params) && @order_item.order.update_total
+        return unless @order_item.update(order_items_params)
 
         render json: OrderItemSerializer.new(@order_item, meta: { message: 'Order item updated successfully' }),
                status: :ok
@@ -21,7 +21,7 @@ module Api
       end
 
       def set_order_item
-        @order_item = OrderItem.includes(:order).find_by_id(params[:id])
+        @order_item = OrderItem.find_by_id(params[:id])
         return if @order_item
 
         render json: { message: 'Order item not found' }, status: :not_found

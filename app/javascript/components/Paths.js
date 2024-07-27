@@ -18,6 +18,7 @@ import MenuList from './Menu/MenuList';
 import ShowOrder from './Orders/ShowOrder';
 import EditOrder from './Orders/EditOrder';
 import NewMenu from './Menu/NewMenu';
+import EditMenu from './Menu/EditMenu';
 const Paths = () => {
   return (
     <BrowserRouter>
@@ -40,6 +41,8 @@ const Paths = () => {
 
           <Route path="/menu/list" element={<MenuList/>} />
           <Route path="menus/new" element={<NewMenu/>} />
+          <Route path="/menus/:id/edit" element={<EditMenu/>} />
+
         </Routes>
     </BrowserRouter>
   )

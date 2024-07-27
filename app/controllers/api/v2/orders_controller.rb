@@ -1,7 +1,7 @@
 module Api
   module V2
     class OrdersController < ApplicationController
-      before_action :set_order, only: %i[edit update show destroy]
+      before_action :set_order, only: %i[edit update show destroy update_order_total]
 
       def create
         @order = Order.new(order_params)
@@ -20,6 +20,12 @@ module Api
 
       def update
         return unless @order.update(order_params)
+
+        render json: OrderSerializer.new(@order, meta: { message: 'Order updated successfully' }), status: :ok
+      end
+
+      def update_order_total
+        return unless @order.update_total
 
         render json: OrderSerializer.new(@order, meta: { message: 'Order updated successfully' }), status: :ok
       end
