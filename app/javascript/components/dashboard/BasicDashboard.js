@@ -37,7 +37,7 @@ const BasicDashboard = () => {
           </Button>
         </ButtonGroup>
 
-        <Stack direction="row" spacing={2} sx={{ mx: "auto !important" }}>
+        <Stack direction="row" spacing={1} sx={{ mx: "auto !important" }}>
           <Stack>
             <a href='/signup'>
               <IconButton aria-label="logo">
