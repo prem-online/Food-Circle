@@ -1,13 +1,15 @@
 import React from 'react'
-import {
+import AddBoxIcon from '@mui/icons-material/AddBox'; import {
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  Paper,Typography
+  TableRow, Button,
+  Paper, Typography, IconButton,
+  Stack
 } from '@mui/material'
+import {COLORS, BUTTONS} from '../../constants'
 const BestSeller = () => {
   function createData(
     name,
@@ -28,9 +30,10 @@ const BestSeller = () => {
 
   return (
     <div>
-        <Typography variant="h6" mb={1}>
-            Best Sellers
-        </Typography>
+      <Button variant="text" sx={BUTTONS.PRIMARY} endIcon={<AddBoxIcon />}>
+        Best Seller
+      </Button>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 300 }} aria-label="simple table">
           <TableHead>

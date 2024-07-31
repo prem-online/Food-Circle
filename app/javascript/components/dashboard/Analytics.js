@@ -6,14 +6,13 @@ import {
   useGaugeState,gaugeClasses
 } from '@mui/x-charts/Gauge';
 import { Typography, Stack } from '@mui/material';
-
-
 const settings = {
   width: 200,
   height: 200,
   value: 60,
 };
 const Analytics = ({day}) => {
+
   return (
     <>
       <Stack>
@@ -36,7 +35,6 @@ const Analytics = ({day}) => {
         {day} Sales
       </Typography>
       </Stack>
-
     </>
   )
 }
