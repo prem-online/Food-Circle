@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import BasicDashboard from '../dashboard/BasicDashboard';
+import UserDashboard from '../dashboard/UserDashboard';
 import OrderSkeleton from './OrderSkeleton';
 import ItemsList from './ItemsList';
 
@@ -85,7 +85,7 @@ const OrderList = () => {
   }
   return (
     <>
-      <BasicDashboard />
+      <UserDashboard />
       <ItemsList open={open} handleClose={handleClose} currentOrder= {currentOrder}/>
       <Container>
         <Stack direction='row' mb={2}>

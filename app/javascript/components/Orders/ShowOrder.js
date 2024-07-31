@@ -5,7 +5,7 @@ import { Container, Stack, Button, Box, Grid,
   Paper, TextField, Typography
  } from '@mui/material';
 
-import BasicDashboard from '../dashboard/BasicDashboard';
+import UserDashboard from '../dashboard/UserDashboard';
 
 import { useLogin } from '../../helpers/useLogin';
 import { BASE_URL } from '../../constants';
@@ -42,7 +42,7 @@ const ShowOrder = () => {
 
   return (
     <>
-      <BasicDashboard/>
+      <UserDashboard/>
       <Container>
         <h1>Order Details</h1>
         {loading ? (

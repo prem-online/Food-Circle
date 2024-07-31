@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
 import EditForm from './EditForm'
-import BasicDashboard from '../dashboard/BasicDashboard'
+import UserDashboard from '../dashboard/UserDashboard'
 import Get from '../Product/Get';
 const EditMenu = () => {
   const { id } = useParams();
@@ -15,7 +15,7 @@ const EditMenu = () => {
   }, [product])
   return (
     <>
-     <BasicDashboard />
+     <UserDashboard />
      <EditForm productData={productData}/> 
     </>
   )
