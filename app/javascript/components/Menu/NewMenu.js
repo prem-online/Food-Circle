@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 
-import BasicDashboard from '../dashboard/BasicDashboard'
+import UserDashboard from '../dashboard/UserDashboard'
 import Form from './Form'
 import PopUp from './PopUp'
 import { useLogin } from '../../helpers/useLogin'
@@ -56,7 +56,7 @@ const NewMenu = () => {
 
   return (
     <>
-     <BasicDashboard/>
+     <UserDashboard/>
      {loading ?(
        <div>Loading...</div>
      ):(

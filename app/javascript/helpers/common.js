@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const timeDiff = (a, b, time_parameter) => {
   const givenA = new Date(a);
   const givenB = new Date(b);
@@ -68,3 +70,11 @@ export const nextMultipleOfTen = (num) => {
 export const handleReload = () => {
   window.location.reload();
 };
+
+export const cloner = (element, dataArray) => {
+  return dataArray.map((value) =>
+    React.cloneElement(element, {
+      key: value,
+    }),
+  );
+}

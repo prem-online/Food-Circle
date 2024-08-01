@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { BASE_URL } from '../../constants';
 import { useLogin } from '../../helpers/useLogin';
-import BasicDashboard from '../dashboard/BasicDashboard';
+import UserDashboard from '../dashboard/UserDashboard';
 import EditForm from './EditForm';
 
 const EditOrder = () => {
@@ -34,7 +34,7 @@ const EditOrder = () => {
 
   return (
     <div>
-      <BasicDashboard></BasicDashboard>
+      <UserDashboard></UserDashboard>
       <EditForm data={order} id={id}/>
     </div>
   )

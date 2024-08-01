@@ -4,7 +4,7 @@ import {Container, Stack, Button,Table, TableBody, TableCell, TableContainer, Ta
 
 import axios from 'axios';
 
-import BasicDashboard from '../dashboard/BasicDashboard';
+import UserDashboard from '../dashboard/UserDashboard';
 import OrderSkeleton from './OrderSkeleton';
 
 import { useLogin } from '../../helpers/useLogin';
@@ -106,7 +106,7 @@ const NewOrder = () => {
   }
   return (
     <>
-      <BasicDashboard />
+      <UserDashboard />
       <Snackbar 
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             open={open}

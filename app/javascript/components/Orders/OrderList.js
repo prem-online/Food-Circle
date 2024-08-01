@@ -6,8 +6,9 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import BasicDashboard from '../dashboard/BasicDashboard';
+import UserDashboard from '../dashboard/UserDashboard';
 import OrderSkeleton from './OrderSkeleton';
+import ItemsList from './ItemsList';
 
 import {sleep, readTime, nextMultipleOfTen} from '../../helpers/common';
 import { useLogin } from '../../helpers/useLogin';
@@ -19,6 +20,8 @@ const OrderList = () => {
   const tableRef = useRef(null);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [currentOrder, setCurrentOrder] = useState('');
   const token = useLogin()
   const [totalPages, setTotalPages] = useState(1);
   
@@ -74,9 +77,16 @@ const OrderList = () => {
           console.log('error'+ error);
         });
   }
+
+  const handleClose = () => setOpen(false);
+  const seeAll = (orderId) => {
+    setOpen(!open);
+    setCurrentOrder(orderId);
+  }
   return (
     <>
-      <BasicDashboard />
+      <UserDashboard />
+      <ItemsList open={open} handleClose={handleClose} currentOrder= {currentOrder}/>
       <Container>
         <Stack direction='row' mb={2}>
           <Button variant='contained' href='/orders/new'>
@@ -118,7 +128,7 @@ const OrderList = () => {
                       {orderItemPresenter(order,'first')}
                       {
                         orderItemPresenter(order,'length') > 1 ? (
-                          <a href='#'> See all</a>
+                          <Button onClick={()=>seeAll(order.id)}> See all</Button>
                         ):(<></>)
                       }
                     </TableCell>
@@ -150,7 +160,7 @@ const OrderList = () => {
           <Pagination sx={{ mx: "auto", pb: 1, pt: 1 }} count={totalPages} color="primary" onChange={handlePagination} />
         </Stack>
       </Container>
-    </>
+      </>
   );
 };
 

@@ -3,7 +3,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Stack, ButtonGroup, Button , IconButton} from "@mui/material";
-const BasicDashboard = () => {
+const UserDashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     // Perform additional logout operations if needed
@@ -26,6 +26,9 @@ const BasicDashboard = () => {
         sx={{ mx: "auto", pb: 1, pt: 1 }}
       >
         <ButtonGroup>
+          <Button variant="primary" href="/dashboard">
+            Dashboard
+          </Button>
           <Button variant="primary" href="/order/list">
             Orders
           </Button>
@@ -37,7 +40,7 @@ const BasicDashboard = () => {
           </Button>
         </ButtonGroup>
 
-        <Stack direction="row" spacing={2} sx={{ mx: "auto !important" }}>
+        <Stack direction="row" spacing={1} sx={{ mx: "auto !important" }}>
           <Stack>
             <a href='/signup'>
               <IconButton aria-label="logo">
@@ -56,4 +59,4 @@ const BasicDashboard = () => {
   );
 };
 
-export default BasicDashboard;
+export default UserDashboard;

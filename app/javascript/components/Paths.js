@@ -10,7 +10,7 @@ import {
 import Features from './Main/Features';
 import Signup from './authentication/Signup';
 import Login from './authentication/Login';
-import BasicDashboard from './dashboard/BasicDashboard';
+import UserDashboard from './dashboard/UserDashboard';
 import Logout from './authentication/Logout';
 import OrderList from './Orders/OrderList';
 import NewOrder from './Orders/NewOrder';
@@ -19,6 +19,7 @@ import ShowOrder from './Orders/ShowOrder';
 import EditOrder from './Orders/EditOrder';
 import NewMenu from './Menu/NewMenu';
 import EditMenu from './Menu/EditMenu';
+import DashbaordContent from './dashboard/DashboardContent';
 const Paths = () => {
   return (
     <BrowserRouter>
@@ -32,7 +33,7 @@ const Paths = () => {
           <Route path="/logout" element={<Logout/>} />
 
           {/* User Dashbaords */}
-          <Route path="/dashboard" element={<BasicDashboard/>} />
+          <Route path="/dashboard" element={<DashbaordContent/>} />
 
           <Route path="/order/list" element={<OrderList/>} />
           <Route path="/orders/new" element={<NewOrder/>} />

@@ -7,7 +7,7 @@ import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import BasicDashboard from '../dashboard/BasicDashboard'
+import UserDashboard from '../dashboard/UserDashboard'
 import MenuSkeleton from './MenuSkeleton'
 
 import { useLogin } from '../../helpers/useLogin';
@@ -67,7 +67,7 @@ const MenuList = () => {
 
   return (
     <>
-      <BasicDashboard></BasicDashboard>
+      <UserDashboard></UserDashboard>
       <Container>
         <Stack direction='row' mb={2}>
           <Button variant='contained' href='/menus/new'>
