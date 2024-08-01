@@ -1,25 +1,36 @@
 import React from 'react'
 import {
-  GaugeContainer,
-  GaugeValueArc,
-  GaugeReferenceArc,Gauge,
-  useGaugeState,gaugeClasses
+  Gauge,
+  gaugeClasses
 } from '@mui/x-charts/Gauge';
-import { Typography, Stack } from '@mui/material';
-const settings = {
-  width: 200,
-  height: 200,
-  value: 60,
-};
-const Analytics = ({day}) => {
+import { Typography, Stack, IconButton } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
+import {COLORS} from '../../constants'
+import CellTowerIcon from '@mui/icons-material/CellTower';
 
+const Analytics = ({day, data}) => {
+  const settings = {
+    width: 200,
+    height: 200,
+    value: data==''? 0: data,
+  };
+
+  const theme = createTheme({
+    palette: {
+      background: {
+        default: COLORS.PRIMARY, // Light grey background for the overall application
+        paper: '#FFFFFF',   // White background for paper surfaces
+      },
+    },
+  });
+  
   return (
     <>
       <Stack>
       <Gauge
         {...settings}
         cornerRadius="50%"
-        sx={(theme) => ({
+        sx={() => ({
           [`& .${gaugeClasses.valueText}`]: {
             fontSize: 40,
           },
@@ -27,7 +38,7 @@ const Analytics = ({day}) => {
             fill: '#52b202',
           },
           [`& .${gaugeClasses.referenceArc}`]: {
-            fill: theme.palette.text.disabled,
+            fill: theme.palette.background.default,
           },
         })}
       />

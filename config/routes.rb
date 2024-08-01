@@ -37,8 +37,12 @@ Rails.application.routes.draw do
       patch                 'products/:id',                   to: 'products#update'
       delete                'products/:id',                   to: 'products#destroy'
 
-      get                   'order_items/:id',                     to: 'order_items#show'
-      patch                 'order_items/:id',                     to: 'order_items#update'
+      get                   'order_items/:id',                to: 'order_items#show'
+      patch                 'order_items/:id',                to: 'order_items#update'
+
+      get                   'sales/today',                    to: 'sales#today'
+      get                   'sales/yesterday',                to: 'sales#yesterday'
+      get                   'sales/week',                     to: 'sales#week'
     end
   end
 

@@ -18,7 +18,6 @@ export const BUTTONS = {
   PRIMARY: {
     fontWeight: "bold", 
     margin: 0,
-    fontWeight: 500,
     fontSize: "1.25rem",
     letterSpacing: 1,
     fontFamily: "sans-serif roboto",
