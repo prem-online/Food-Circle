@@ -31,11 +31,13 @@ Rails.application.routes.draw do
       get                   'orders/:id',                     to: 'orders#show'
       patch                 'orders/:id',                     to: 'orders#update'
       delete                'orders/:id',                     to: 'orders#destroy'
+      get                   'latest_orders',                  to: 'orders#latest_orders'
 
       post                  'products',                       to: 'products#create'
       get                   'products/:id',                   to: 'products#show'
       patch                 'products/:id',                   to: 'products#update'
       delete                'products/:id',                   to: 'products#destroy'
+      get                   'best_sellers',                   to: 'products#best_sellers'
 
       get                   'order_items/:id',                to: 'order_items#show'
       patch                 'order_items/:id',                to: 'order_items#update'

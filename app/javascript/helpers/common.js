@@ -78,3 +78,26 @@ export const cloner = (element, dataArray) => {
     }),
   );
 }
+
+export const getRandomString = (length) => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+  }
+  return result;
+}
+
+export const getRandomUniqueSixDigits = () => {
+  const digits = '0123456789'.split('');
+  let result = '';
+
+  for (let i = 0; i < 6; i++) {
+    const randomIndex = Math.floor(Math.random() * digits.length);
+    result += digits[randomIndex];
+    digits.splice(randomIndex, 1); // Remove the used digit
+  }
+
+  return parseInt(result, 10); // Convert the result string to an integer
+}

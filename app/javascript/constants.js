@@ -22,7 +22,6 @@ export const BUTTONS = {
     letterSpacing: 1,
     fontFamily: "sans-serif roboto",
     lineHeight: 1.6,
-    letterSpacing: "0.0075em",
     textTransform: "capitalize",
     marginBottom: 2,
     color: COLORS.BLACK,

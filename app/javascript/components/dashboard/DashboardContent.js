@@ -54,10 +54,10 @@ const DashbaordContent = () => {
 
           <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid item xs={6}>
-            <DashboardChart title="Title here"/>
+            <DashboardChart title="Best Seller Matrix" subtitle="Subtitle"/>
             </Grid>
             <Grid item xs={6}>
-            <DashboardChart title="Title here"/>
+            <DashboardChart title="Order Matrix" subtitle="Subtitle"/>
             </Grid>
           </Grid>
 

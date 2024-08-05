@@ -36,6 +36,11 @@ module Api
         render json: @order.errors, status: :unprocessable_entity
       end
 
+      def latest_orders
+        @orders = Order.last(params[:count] || 5)
+        render json: OrderSerializer.new(@orders), status: :ok
+      end
+
       private
 
       def order_params

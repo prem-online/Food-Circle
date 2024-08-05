@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios';
+import { useLogin } from '../../helpers/useLogin';
+import { BASE_URL } from '../../constants';
 import AddBoxIcon from '@mui/icons-material/AddBox'; import {
   Table,
   TableBody,
@@ -10,24 +13,27 @@ import AddBoxIcon from '@mui/icons-material/AddBox'; import {
   Stack
 } from '@mui/material'
 import {COLORS, BUTTONS} from '../../constants'
-const BestSeller = () => {
-  function createData(
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  ) {
-    return { name, calories, fat, carbs, protein };
-  }
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
+import BestSellerSkeleton from './skeletons/BestSellerSkeleton'
+const BestSeller = () => {
+  const [products, setProducts] = useState('');
+  const token = useLogin();
+
+  useEffect(()=>{
+    if(token !=''){
+
+      const fetchProducts = async ()=>{
+        const url = `${BASE_URL}api/v2/best_sellers/`
+        axios.get(url, {headers: {token: token}})
+        .then(async (response) => {
+          const data = await response.data
+          setProducts(data.data)
+        }).catch(error => {console.log(error) });
+      }
+     fetchProducts()
+    }
+  },[token])
   return (
     <div>
       <Button variant="text" sx={BUTTONS.PRIMARY} endIcon={<AddBoxIcon />}>
@@ -46,13 +52,38 @@ const BestSeller = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {
+            products==''? (
+              <>
+                <BestSellerSkeleton/>
+                <BestSellerSkeleton/>
+                <BestSellerSkeleton/>
+                <BestSellerSkeleton/>
+                <BestSellerSkeleton/>
+              </>
+            ):
+            products.map((product) => (
               <TableRow
-                key={row.name}
+                key={product.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+
+                <Stack direction="row">
+                    <Stack direction="row">
+                        <Typography>
+                          {product.attributes.name}
+                        </Typography>
+                    </Stack>
+                    <Stack direction="row">
+                      <IconButton 
+                        aria-label="delete" size="small"
+                        >
+                        <TrendingUpIcon fontSize="small"/>
+                      </IconButton>
+                    </Stack>
+                </Stack> 
+              
                 </TableCell>
               </TableRow>
             ))}

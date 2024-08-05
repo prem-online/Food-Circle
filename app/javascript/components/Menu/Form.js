@@ -25,7 +25,7 @@ const Form = ({handleSubmit,onNameChange,onPriceChange,actionName}) => {
         <TextField id="outlined-price" label="Price" variant="outlined" 
          onChange={(onPriceChange)}/>
          <Stack direction="column" spacing={1}>
-          <Button type="submit" variant="contained">{actionName}</Button>
+          <Button type="submit" variant="contained">{actionName != "" ? "Submit" : "Submit"}</Button>
           <Button href="/menu/list" variant="outlined">Back</Button>
         </Stack>
 
