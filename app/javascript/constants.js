@@ -31,3 +31,5 @@ export const BUTTONS = {
     backgroundColor: COLORS.SECONDARY,
   },
 }
+
+export const V2 = BASE_URL+"api/v2/";

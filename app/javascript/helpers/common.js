@@ -1,4 +1,5 @@
 import React from 'react';
+import millify from 'millify';
 
 export const timeDiff = (a, b, time_parameter) => {
   const givenA = new Date(a);
@@ -100,4 +101,14 @@ export const getRandomUniqueSixDigits = () => {
   }
 
   return parseInt(result, 10); // Convert the result string to an integer
+}
+
+export const humanCurrency = (value) => {
+  return millify(value, {
+      precision: 2,
+      lowercase: true,
+      units: ['', '', 'Lakh', 'Cr'], // Indian numbering system units
+      decimalSeparator: '.',
+      space: true,
+  });
 }

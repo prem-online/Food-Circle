@@ -3,10 +3,10 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import { Typography } from '@mui/material';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useLogin } from '../../helpers/useLogin';
-import { V2 } from '../../constants';
-import { sleep } from '../../helpers/common';
-export default function DashboardChart({title, subtitle, graphData}) {
+import { useLogin } from '../../../helpers/useLogin';
+import { V2 } from '../../../constants';
+import { sleep } from '../../../helpers/common';
+export default function OrderGraph({title, subtitle, graphData}) {
   const xLabels = [
     'Jan',
     'Feb',

@@ -7,12 +7,13 @@ import { Typography, Stack, IconButton } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import {COLORS} from '../../constants'
 import CellTowerIcon from '@mui/icons-material/CellTower';
-
+import {humanCurrency} from '../../helpers/common'
+import millify from 'millify';
 const Analytics = ({day, data}) => {
   const settings = {
     width: 200,
     height: 200,
-    value: data==''? 0: data,
+    value: data=='' ? 0 : humanCurrency(parseInt(data)),
   };
 
   const theme = createTheme({
@@ -32,7 +33,7 @@ const Analytics = ({day, data}) => {
         cornerRadius="50%"
         sx={() => ({
           [`& .${gaugeClasses.valueText}`]: {
-            fontSize: 40,
+            fontSize: 30,
           },
           [`& .${gaugeClasses.valueArc}`]: {
             fill: '#52b202',
