@@ -1,12 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React , {useState}from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Typography } from '@mui/material';
-import { useEffect } from 'react';
-import axios from 'axios';
-import { useLogin } from '../../../helpers/useLogin';
-import { V2 } from '../../../constants';
-import { sleep } from '../../../helpers/common';
-export default function BestSellerGraph({title, subtitle, graphData}) {
+import {CURRENT_YEAR, PREVIOUS_YEAR} from '../../../constants'
+const BestSellerGraph = ({title, subtitle, graphData}) => {
   const xLabels = [
     'Jan',
     'Feb',
@@ -26,39 +22,16 @@ export default function BestSellerGraph({title, subtitle, graphData}) {
     [2400, 1398, 9800, 3908, 4800, 3800, 2400, 1398, 9800, 3908, 4800, 3800, ]
   ],
   )
-  const token = useLogin();
-  useEffect(() => {
-    if (token != '')
-      { 
-        getRequest(
-          `graphs/${graphData}`, setGraphData
-        )
-      }
-
-  }, [token]);
-
-  const getRequest = async (url, setFunc) =>{
-    await axios.get(V2+url, {headers: {token: token}})
-   .then((response) => {
-    const data = response.data.result
-    const [current_year_key, previous_year_key] = Object.keys(data)
-    const current_year = Object.values(data[current_year_key])
-    const previous_year = Object.values(data[previous_year_key])
-    setGraphData([
-      current_year,
-      previous_year
-    ])
-  })
-   .catch((error)=>console.error(error))
-  }
+  const data1 = [240, 198, 92800, 908, 44800, 1800, 2440, 13345, 98320, 3234, 4110, 32343, ]
   return (
-    <>
-      <LineChart
+   <>
+    <LineChart
         series={[
-          { data: dataLastYear, label: '2023' },
-          { data: dataCurrentYear, label: '2024' },
+          { data: dataLastYear, label: '201412412423' },
+          { data: dataCurrentYear, label: '20241fgdfgdfgdfgdfg' },
+          { data: dataLastYear, label: '20dfgdgdfgdg23' },
         ]}
-        width={500}
+        width={600}
         height={300}
         xAxis={[{ scaleType: 'point', data: xLabels }]}
         margin={{ left: 70 }}
@@ -66,6 +39,8 @@ export default function BestSellerGraph({title, subtitle, graphData}) {
 
       <Typography mb={1} sx={{textAlign: 'center'}}>{title}</Typography>
       <Typography mb={1} sx={{textAlign: 'center', zIndex: -1}}>{subtitle}</Typography>
-    </>
+   </>
   );
-}
+};
+
+export default BestSellerGraph;

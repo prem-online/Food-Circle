@@ -107,7 +107,7 @@ export const humanCurrency = (value) => {
   return millify(value, {
       precision: 2,
       lowercase: true,
-      units: ['', '', 'Lakh', 'Cr'], // Indian numbering system units
+      units: ['', '', 'Lakh', 'Cr', 'Arab', 'Kharab', 'Neel', 'Padma', 'Shankh'], // Indian numbering system units
       decimalSeparator: '.',
       space: true,
   });

@@ -7,7 +7,6 @@ import UserDashboard from './UserDashboard'
 import BestSeller from './BestSeller'
 import Orders from './Orders';
 import Analytics from './Analytics';
-import DashboardChart from './DashboardChart';
 import OrderGraph from './graphs/OrderGraph'
 import BestSellerGraph from './graphs/BestSellerGraph';
 import {useLogin} from '../../helpers/useLogin'

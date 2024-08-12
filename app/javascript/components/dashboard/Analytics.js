@@ -13,7 +13,7 @@ const Analytics = ({day, data}) => {
   const settings = {
     width: 200,
     height: 200,
-    value: data=='' ? 0 : humanCurrency(parseInt(data)),
+    value: data=='' ? 0 : parseInt(data),
   };
 
   const theme = createTheme({

@@ -33,3 +33,6 @@ export const BUTTONS = {
 }
 
 export const V2 = BASE_URL+"api/v2/";
+
+export const CURRENT_YEAR = `${new Date().getFullYear()}`;
+export const PREVIOUS_YEAR = `${new Date().getFullYear()-1}`;

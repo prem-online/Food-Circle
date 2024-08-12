@@ -5,7 +5,7 @@ class OrderGraphService
     @current_year = Time.current.year
   end
 
-  def order_graph
+  def all
     current_orders_total_by_month = extract_current_order_graph
     previous_orders_total_by_month = extract_previous_order_graph
 
