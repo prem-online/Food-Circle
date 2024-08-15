@@ -58,4 +58,8 @@ class Order < ApplicationRecord
     last_id = Order.ids.last || 1
     order_number = 'ON' + (600_000 + last_id).to_s
   end
+
+  def add_bestsellers
+    # code
+  end
 end

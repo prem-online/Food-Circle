@@ -1,6 +1,5 @@
 import axios from "axios";
 import { REFRESH_TOKEN_URL } from "../constants";
-
 export const refreshToken = async (refresh_token) => {
   try {
     const response = await axios.post(REFRESH_TOKEN_URL, {
@@ -14,8 +13,14 @@ export const refreshToken = async (refresh_token) => {
     loginInfo.logged_in_at = new Date;
     localStorage.removeItem('login_info');
     localStorage.setItem('login_info', JSON.stringify(loginInfo))
+
+    setTimeout(function() {
+      location.reload();
+    }, 1000);
+    
     return token;
   } catch (err) {
     return null;
   }
 };
+

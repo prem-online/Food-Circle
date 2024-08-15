@@ -23,7 +23,8 @@ class OrderItem < ApplicationRecord
   end
 
   def update_product_sales
-    sales = product.sales.to_i
-    product.update(sales: sales + 1)
+    sales = product.sales.to_i + 1
+    sold_quantity = product.sold_quantity.to_i + quantity.to_i
+    product.update(sales:, sold_quantity:)
   end
 end

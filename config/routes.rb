@@ -46,8 +46,12 @@ Rails.application.routes.draw do
       get                   'sales/yesterday',                to: 'sales#yesterday'
       get                   'sales/week',                     to: 'sales#week'
 
-      get                   'graphs/products', to: 'graphs#products'
-      get                   'graphs/orders', to: 'graphs#orders'
+      get                   'graphs/orders',                  to: 'graphs#orders'
+
+      namespace :graphs do
+        get 'bestsellers/labels', to: 'bestsellers#labels'
+        get 'bestsellers/sales/:name', to: 'bestsellers#sales'
+      end
     end
   end
 

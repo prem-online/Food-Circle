@@ -95,3 +95,6 @@ gem "jsbundling-rails", "~> 1.3"
 gem "bcrypt", "~> 3.1"
 gem "jwt", "~> 2.8"
 gem 'kaminari'
+
+gem 'whenever', require: false
+gem 'sequel', '~> 5.83', '>= 5.83.1'
