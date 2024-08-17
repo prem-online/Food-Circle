@@ -36,9 +36,14 @@ const BestSeller = () => {
   },[token])
   return (
     <div>
-      <Button variant="text" sx={BUTTONS.PRIMARY} endIcon={<AddBoxIcon />}>
-        Best Seller
-      </Button>
+      <Stack direction="row" spacing={1}>
+        <Button variant="text" href="/menu/list" sx={BUTTONS.PRIMARY}>
+          Best Seller
+        </Button>
+        <IconButton href="/menus/new">
+          <AddBoxIcon color="primary"/>
+        </IconButton>
+      </Stack>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 300 }} aria-label="simple table">

@@ -52,12 +52,16 @@ const Orders = () => {
 
   return (
     <div>
-      <ButtonGroup>
-        <Button variant="text" sx={BUTTONS.PRIMARY} href="/order/list">
+
+      <Stack direction="row" spacing={1}>
+        <Button variant="text" href="/order/list" sx={BUTTONS.PRIMARY}>
           Latest Orders
         </Button>
-        <a href="/orders/new"><AddBoxIcon /></a>
-      </ButtonGroup>
+        <IconButton href="/orders/new">
+          <AddBoxIcon color="primary"/>
+        </IconButton>
+      </Stack>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

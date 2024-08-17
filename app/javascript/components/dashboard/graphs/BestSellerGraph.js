@@ -9,8 +9,6 @@ import { sleep } from '../../../helpers/common';
 const BestSellerGraph = ({title, subtitle, graphData}) => {
   const xLabels = [ 'Jan', 'Feb','Mar','Apr', 'May', 'Jun', 'Jul', 'Aug','Sep','Oct','Nov','Dec',];
 
-  const [labels, setLabels]=useState(['Product1', 'Product2', 'Product3'])
-
   const [label0, setLabel0] = useState('Product0')
   const [label1, setLabel1] = useState('Product1')
   const [label2, setLabel2] = useState('Product2')
