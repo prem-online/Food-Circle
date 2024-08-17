@@ -6,6 +6,9 @@
 - Create orders
 - Manage inventory for their products
 
+![Dashboard](app/assets/images/Food-Circle-Dashboard.png)
+
+
 Steps to Get started with Food-Circle
 
 * **Run** ```bunlde install```
