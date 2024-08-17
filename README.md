@@ -1,24 +1,20 @@
-# README
+# Food-Circle
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**Food-Circle** is an inventory management tool that allows users to:
 
-Things you may want to cover:
+- View sales statistics
+- Create orders
+- Manage inventory for their products
 
-* Ruby version
+Steps to Get started with Food-Circle
 
-* System dependencies
+* bunlde install
+* run ./bin/rails javascript:install:esbuild
+* Add changes in package.json file
+* Add following Environment variables:
+  * DATABASE_USERNAME, DATABASE_PASSWORD, DEV_DATABASE_NAME, TEST_DATABASE_NAME, JWT_SECRET_KEY
+* Add database configurations
+* run db:migrations
+* run ./bin/dev to start the app
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
