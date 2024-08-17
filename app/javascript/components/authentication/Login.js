@@ -29,8 +29,11 @@ const Login = () => {
             localStorage.setItem('login_info', JSON.stringify(response.data.meta.login_info))
             window.location.href = '/dashboard';
       } catch (err) {
-        console.log(err);
-            setResponseMessage(err.response.data[0]);
+            setResponseMessage(
+                err.response?.data?.[0] || 
+                err.response?.data?.errors?.[0] || 
+                "An unexpected error occurred."
+            );
             setOpen(true);
             setError(true);
             setSeverity('error');

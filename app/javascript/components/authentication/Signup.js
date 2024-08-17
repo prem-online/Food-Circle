@@ -60,6 +60,7 @@ function Signup() {
 
   const handleClose = () => {
     setOpen(false);
+    window.location.href = '/dashboard';
   };
 
   const createAccount = async (email, password, confirmPassword) => {
@@ -77,9 +78,14 @@ function Signup() {
             setResponseMessage(`Account ${MODULE_SUCCESSFULL_CREATED}`);
             setOpen(true);
             setSeverity('success');
-        console.log(response)
+            
       } catch (error) {
-            setResponseMessage(error.response.data[0]);
+            console.log(error)
+            setResponseMessage(
+              error.response?.data?.[0] || 
+              error.response?.data?.errors?.[0] || 
+              "An unexpected error occurred."
+            );
             setOpen(true);
             setSeverity('error');
       }
@@ -110,7 +116,7 @@ function Signup() {
           <Snackbar 
               anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
               open={open}
-              autoHideDuration={3000}
+              autoHideDuration={1000}
               key={'top' + 'center'}
               onClose={handleClose}
           >
