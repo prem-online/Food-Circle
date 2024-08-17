@@ -5,7 +5,7 @@ import {
 } from '@mui/x-charts/Gauge';
 import { Typography, Stack, IconButton } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import {COLORS} from '../../constants'
+import {COLORS} from '../../helpers/colors'
 import CellTowerIcon from '@mui/icons-material/CellTower';
 import {humanCurrency} from '../../helpers/common'
 import millify from 'millify';

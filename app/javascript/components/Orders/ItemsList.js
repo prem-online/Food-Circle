@@ -6,8 +6,8 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import axios from 'axios';
 
 import { useLogin } from '../../helpers/useLogin';
-import { BASE_URL, COLORS } from '../../constants';
-
+import { BASE_URL } from '../../constants';
+import {COLORS} from '../../helpers/colors'
 const ItemsList = ({open, handleClose, currentOrder}) => {
   const [items, setItems] = useState('');
   const [loading, setLoading] = useState(true);

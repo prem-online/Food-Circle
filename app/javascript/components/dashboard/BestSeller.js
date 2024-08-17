@@ -12,7 +12,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox'; import {
   Paper, Typography, IconButton,
   Stack
 } from '@mui/material'
-import {COLORS, BUTTONS} from '../../constants'
+import {BUTTONS} from '../../helpers/buttons'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 import BestSellerSkeleton from './skeletons/BestSellerSkeleton'

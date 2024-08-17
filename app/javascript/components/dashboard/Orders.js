@@ -12,7 +12,8 @@ import {
   Typography,Button
 } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import {BUTTONS, BASE_URL} from '../../constants'
+import {BASE_URL} from '../../constants'
+import {BUTTONS} from '../../helpers/buttons'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
