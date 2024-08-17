@@ -7,7 +7,12 @@ import axios from 'axios';
 import UserDashboard from '../dashboard/UserDashboard';
 import NewOrderSkeleton from './NewOrderSkeleton';
 import AddIcon from '@mui/icons-material/Add';
+import ClearIcon from '@mui/icons-material/Clear';
 import RemoveIcon from '@mui/icons-material/Remove';
+import Timer10Icon from '@mui/icons-material/Timer10';
+import InputAdornment from '@mui/material/InputAdornment';
+import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useLogin } from '../../helpers/useLogin';
 import {COLORS} from '../../helpers/colors';
 import { BASE_URL, MODULE_SUCCESSFULL_CREATED } from '../../constants';
@@ -54,7 +59,10 @@ const NewOrder = () => {
       const quantity = productQuantity[`pd-${id}`] 
       quantity === undefined ? '' : quantity
       return quantity
-    }else{
+    }else if(caller ==="clearQuantity"){
+      document.getElementById(`quantity${id}`).value = ''
+    }
+    else{
       document.getElementById(`quantity${id}`).value = productQuantity[`pd-${id}`]
     }
   }
@@ -67,9 +75,9 @@ const NewOrder = () => {
       return
     }
     else if (!isItFirstCall && quantity === 3){
-      const newQuantity = productQuantity[`pd-${id}`] === undefined ? quantity : productQuantity[`pd-${id}`]-1
+      const newQuantity = productQuantity[`pd-${id}`] === undefined ? 0 : productQuantity[`pd-${id}`]-1
       finalQuantityObj = productQuantity;
-      finalQuantityObj[`pd-${id}`] = newQuantity == 0 ? 0 : newQuantity;
+      finalQuantityObj[`pd-${id}`] = newQuantity < 0 ? 0 : newQuantity;
     }
   else{
       const newQuantity = productQuantity[`pd-${id}`] === undefined ? quantity : productQuantity[`pd-${id}`]+quantity
@@ -81,6 +89,12 @@ const NewOrder = () => {
     showQuantity(id,"addQuantity")
   }
  
+  const clearProductQuantity = (id) => {
+    let finalQuantityObj = productQuantity;
+    delete finalQuantityObj[`pd-${id}`];
+    showQuantity(id, "clearQuantity")
+  }
+  
   const handleSubmit = async (event)=>{
     event.preventDefault();
     const productData = transformData(productQuantity)
@@ -165,22 +179,43 @@ const NewOrder = () => {
                   </TableCell>
                   <TableCell>{row.attributes.name}</TableCell>
                   <TableCell>
-                    
-                    <TextField width={10} id={"quantity"+row.id} label="" variant="outlined"
+
+                    <TextField
+                      id={"quantity"+row.id}
+                      variant="outlined"
+                      label=""
+                      value={showQuantity(row.id,'row')}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton onClick={() => {{ clearProductQuantity(row.id) }}}>
+                              <ClearIcon />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    {/* <TextField id={"quantity"+row.id} label="" variant="outlined"
                       size="small"
                       value={showQuantity(row.id,'row')}
-                      />
+                      /> */}
+
                     <Stack mt={1}>
-                      <Stack direction="row" spacing={2}>
-                      <Fab ml={2} color="primary" aria-label="add" onClick={()=> {addQuantity(row.id,1)}}>
-                        <AddIcon sx={{ color: COLORS.WHITE }}/>
-                      </Fab>
-                      <Fab color="primary" aria-label="add" onClick={()=> {addQuantity(row.id,3)}}>
-                        <RemoveIcon sx={{color: COLORS.WHITE}} />
-                      </Fab>
-                      <Fab color="primary" aria-label="add" onClick={()=> {addQuantity(row.id,10)}}>
-                        +10
-                      </Fab>
+
+                      <Stack direction="row" spacing={0}>
+                        <IconButton color="primary" onClick={() => {addQuantity(row.id,1)}}>
+                          <AddBoxIcon />
+                        </IconButton>
+
+                        <IconButton color="primary" onClick={() => {addQuantity(row.id,3)}}>
+                          <IndeterminateCheckBoxIcon />
+                        </IconButton>
+
+                        <IconButton color="primary" onClick={() => {addQuantity(row.id,10)}}>
+                          <Timer10Icon />
+                        </IconButton>
+                      
                       </Stack>
                     </Stack>
 
