@@ -30,6 +30,11 @@ module Api
         render json: @product.errors, status: :unprocessable_entity
       end
 
+      def best_sellers
+        products = Product.order(sales: :desc).last(params[:count] || 5)
+        render json: ProductSerializer.new(products), status: :ok
+      end
+
       private
 
       def product_params

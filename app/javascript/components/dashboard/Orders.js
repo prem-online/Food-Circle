@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {useState,
+  useEffect
+} from 'react'
 import {
   Table,
   TableBody,
@@ -6,35 +8,60 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  Paper,ButtonGroup,Stack,IconButton,
   Typography,Button
 } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import {BUTTONS} from '../../constants'
-const Orders = () => {
-  function createData(
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  ) {
-    return { name, calories, fat, carbs, protein };
-  }
+import {BUTTONS, BASE_URL} from '../../constants'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
+import OrderSkeleton from './skeletons/OrderSkeleton'
+import { useLogin } from '../../helpers/useLogin';
+import {readTime} from '../../helpers/common'
+const Orders = () => {
+  const [orders, setOrders] = useState('');
+  const token = useLogin()
+
+  
+  useEffect(() => {
+    if(token!=''){
+      const fetchOrders = async () => {
+        const response = await fetch(`${BASE_URL}api/v2/latest_orders/`, {
+          headers: {
+            'token': `${token}`
+          }
+        });
+        const data = await response.json();
+        setOrders(data.data);
+      };
+      fetchOrders();
+    }
+  },[token]);
+
+  const handleDelete = async (order) => {
+    const url = `${BASE_URL}api/v2/orders/${order.id}`;
+    await axios.delete(url, { headers: { token: token } })
+     .then(response => {
+        setOrders(orders.filter(o=>o.id!== order.id))
+      })
+     .catch((error) => {
+          console.log('error'+ error);
+        });
+  }
 
   return (
     <div>
-      <Button variant="text" sx={BUTTONS.PRIMARY} endIcon={<AddBoxIcon />}>
-        Latest Orders
-      </Button>
+
+      <Stack direction="row" spacing={1}>
+        <Button variant="text" href="/order/list" sx={BUTTONS.PRIMARY}>
+          Latest Orders
+        </Button>
+        <IconButton href="/orders/new">
+          <AddBoxIcon color="primary"/>
+        </IconButton>
+      </Stack>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -42,23 +69,54 @@ const Orders = () => {
               <TableCell> <Typography variant='body1'>Order Number</Typography></TableCell>
               <TableCell><Typography variant='body1'>Order Items</Typography></TableCell>
               <TableCell><Typography variant='body1'></Typography>Order Date</TableCell>
-              <TableCell align="right"><Typography variant='body1'></Typography>Action</TableCell>
+              <TableCell><Typography variant='body1'></Typography>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {
+            orders==''? (
+              <>
+                <OrderSkeleton/>
+                <OrderSkeleton/>
+                <OrderSkeleton/>
+                <OrderSkeleton/>
+                <OrderSkeleton/>
+              </>
+              
+            ) :
+            (orders.map((order) => (
               <TableRow
-                key={row.name}
+                key={order.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {order.attributes.order_number}
                 </TableCell>
-                <TableCell>{row.calories}</TableCell>
-                <TableCell>{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
+                <TableCell>{order.attributes.order_items[0].name}</TableCell>
+                <TableCell>{readTime(order.attributes.created_at)}</TableCell>
+                <TableCell align="right">
+                  <Stack direction="row">
+                    <Stack direction="row">
+                      <a href={`/orders/${order.id}/edit`} target="_self">
+                        <IconButton size="small" aria-label="edit" >
+                          <EditIcon fontSize="small" />
+                        </IconButton>
+                      </a>
+                    </Stack>
+                    <Stack direction="row">
+                      <IconButton 
+                        aria-label="delete" size="small"
+                        onClick={()=>handleDelete(order)}
+                        >
+                        <DeleteIcon fontSize="small"/>
+                      </IconButton>
+                    </Stack>
+                      </Stack> 
+                </TableCell>
               </TableRow>
-            ))}
+            )))
+            
+            }
           </TableBody>
         </Table>
       </TableContainer>

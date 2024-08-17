@@ -7,8 +7,8 @@ import UserDashboard from './UserDashboard'
 import BestSeller from './BestSeller'
 import Orders from './Orders';
 import Analytics from './Analytics';
-import DashboardChart from './DashboardChart';
-
+import OrderGraph from './graphs/OrderGraph'
+import BestSellerGraph from './graphs/BestSellerGraph';
 import {useLogin} from '../../helpers/useLogin'
 import { BASE_URL } from '../../constants';
 
@@ -16,7 +16,8 @@ const DashbaordContent = () => {
   const [saleToday, setSalesToday] = useState('')
   const [saleYesterday, setSalesYesterday] = useState('')
   const [salesWeek, setSalesWeek] = useState('')
-
+  const [orderChart, setOrderChart] = useState('')
+  const [orderChartLoading, setOrderChartLoading] = useState(true)
   const token = useLogin();
 
   const getSalesData = async () =>{
@@ -28,18 +29,29 @@ const DashbaordContent = () => {
     await getRequest(url, setSalesWeek)
   }
 
+  const getOrderChart = async ()=>{
+    const url = `${BASE_URL}/api/v2/graphs/orders`
+    await axios.get(url, {headers: {token: token}})
+   .then((response) => {
+    setOrderChart(response.data.result)
+    setOrderChartLoading(false);
+  })
+   .catch((error)=>console.error(error))
+  }
+
   useEffect(() => {
     if(token!= ''){
       getSalesData();
+      getOrderChart();
     }
   },[token])
 
   const getRequest = async (url, setFunc) =>{
     await axios.get(url, {headers: {token: token}})
    .then((response) => {
-    setFunc(response.data.sales) 
+    setFunc(response.data.sales)
   })
-   .catch((error)=>console.error())
+   .catch((error)=>console.error(error))
   }
   return (
     <div>
@@ -54,10 +66,10 @@ const DashbaordContent = () => {
 
           <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid item xs={6}>
-            <DashboardChart title="Title here"/>
+              <BestSellerGraph title="Best Seller Matrix" subtitle="Subtitle" graphData='orders'/>
             </Grid>
             <Grid item xs={6}>
-            <DashboardChart title="Title here"/>
+              <OrderGraph title="Order Matrix" subtitle="Subtitle" graphData='orders'/>
             </Grid>
           </Grid>
 

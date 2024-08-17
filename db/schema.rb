@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_24_153340) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_15_084051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_24_153340) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
+
+  create_table "bestsellers", force: :cascade do |t|
+    t.string "name"
+    t.integer "sold_quantity", default: 0
+    t.integer "account_id", null: false
+    t.string "day_month_year", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "account_id", "day_month_year"], name: "index_bestsellers_on_name_and_account_id_and_day_month_year", unique: true
   end
 
   create_table "blacklisted_tokens", force: :cascade do |t|
@@ -71,6 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_24_153340) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "account_id", null: false
+    t.string "first_item"
     t.index ["account_id"], name: "index_orders_on_account_id"
   end
 
@@ -80,6 +91,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_24_153340) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "account_id", null: false
+    t.integer "sales", default: 0
+    t.integer "sold_quantity"
     t.index ["account_id"], name: "index_products_on_account_id"
   end
 

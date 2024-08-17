@@ -5,7 +5,7 @@ import {Container, Stack, Button,Table, TableBody, TableCell, TableContainer, Ta
 import axios from 'axios';
 
 import UserDashboard from '../dashboard/UserDashboard';
-import OrderSkeleton from './OrderSkeleton';
+import NewOrderSkeleton from './NewOrderSkeleton';
 
 import { useLogin } from '../../helpers/useLogin';
 
@@ -138,11 +138,11 @@ const NewOrder = () => {
               {
               loading ? (
                 <>
-                  <OrderSkeleton/>
-                  <OrderSkeleton/>
-                  <OrderSkeleton/>
-                  <OrderSkeleton/>
-                  <OrderSkeleton/>
+                  <NewOrderSkeleton/>
+                  <NewOrderSkeleton/>
+                  <NewOrderSkeleton/>
+                  <NewOrderSkeleton/>
+                  <NewOrderSkeleton/>
                 </>
               ):(
               menuItems.map((row,index) => (

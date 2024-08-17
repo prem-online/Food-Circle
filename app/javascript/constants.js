@@ -22,7 +22,6 @@ export const BUTTONS = {
     letterSpacing: 1,
     fontFamily: "sans-serif roboto",
     lineHeight: 1.6,
-    letterSpacing: "0.0075em",
     textTransform: "capitalize",
     marginBottom: 2,
     color: COLORS.BLACK,
@@ -32,3 +31,8 @@ export const BUTTONS = {
     backgroundColor: COLORS.SECONDARY,
   },
 }
+
+export const V2 = BASE_URL+"api/v2/";
+
+export const CURRENT_YEAR = `${new Date().getFullYear()}`;
+export const PREVIOUS_YEAR = `${new Date().getFullYear()-1}`;
