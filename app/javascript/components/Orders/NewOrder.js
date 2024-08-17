@@ -180,30 +180,26 @@ const NewOrder = () => {
                   <TableCell>{row.attributes.name}</TableCell>
                   <TableCell>
 
-                    <TextField
-                      id={"quantity"+row.id}
-                      variant="outlined"
-                      label=""
-                      value={showQuantity(row.id,'row')}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton onClick={() => {{ clearProductQuantity(row.id) }}}>
-                              <ClearIcon />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-
-                    {/* <TextField id={"quantity"+row.id} label="" variant="outlined"
-                      size="small"
-                      value={showQuantity(row.id,'row')}
-                      /> */}
-
                     <Stack mt={1}>
-
                       <Stack direction="row" spacing={0}>
+                        <TextField
+                          id={"quantity"+row.id}
+                          variant="outlined"
+                          hiddenLabel
+                          size="small"
+                          sx={{width: '18ch'}}
+                          value={showQuantity(row.id,'row')}
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton onClick={() => {{ clearProductQuantity(row.id) }}}>
+                                  <ClearIcon />
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+
                         <IconButton color="primary" onClick={() => {addQuantity(row.id,1)}}>
                           <AddBoxIcon />
                         </IconButton>

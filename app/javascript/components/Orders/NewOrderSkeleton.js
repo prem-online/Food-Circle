@@ -12,12 +12,7 @@ const NewOrderSkeleton = () => {
         </TableCell>
         <TableCell>
           <Stack direction="column" spacing={1}>
-            <Skeleton animation="wave" variant="rectangular" width={180} height={30} />
-            <Stack direction="row" spacing={1}>
-              <Skeleton animation="wave" variant="circular" width={45} height={45} sx={{mt: 2}}/>
-              <Skeleton animation="wave" variant="circular" width={45} height={45} sx={{mt: 2}}/>
-              <Skeleton animation="wave" variant="circular" width={45} height={45} sx={{mt: 2}}/>
-            </Stack>
+            <Skeleton animation="wave" variant="rectangular" width={120} height={30} />
           </Stack>
 
         </TableCell>
