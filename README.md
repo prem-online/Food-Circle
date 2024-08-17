@@ -1,6 +1,6 @@
 # Food-Circle
 
-**Food-Circle** is an inventory management tool that allows users to:
+**Food-Circle** is an inventory management tool made with ruby on rails, react and material-ui that allows users to:
 
 - View sales statistics
 - Create orders
